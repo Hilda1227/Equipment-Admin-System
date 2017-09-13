@@ -31,7 +31,7 @@
 
     </div>  
     <div class="weui-btn-area">
-        <a @click="submit" href="javascript:" class="weui-btn weui-btn_primary">认证</a>
+        <a @click="submit" href="javascript:" class="weui-btn weui-btn_primary">登录</a>
     </div>   
   </div>
 </template>

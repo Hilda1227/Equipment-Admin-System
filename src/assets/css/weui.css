@@ -1492,7 +1492,7 @@ a.weui-media-box:active {
 .weui-media-box_appmsg .weui-media-box__hd {
   margin-right: .8em;
   width: 60px;
-  height: 60px;
+  height: 90px;
   line-height: 60px;
   text-align: center;
 }

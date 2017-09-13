@@ -7,7 +7,7 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-module.exports = {
+const originalConfig = {
   entry: {
     app: './src/main.js'
   },
@@ -27,15 +27,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        // test: /\.(js|vue)$/,
-        // loader: 'eslint-loader',
-        // enforce: 'pre',
-        // include: [resolve('src'), resolve('test')],
-        // options: {
-        //   formatter: require('eslint-friendly-formatter')
-        // }
-      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -73,3 +64,10 @@ module.exports = {
     ]
   }
 }
+
+const vuxLoader = require('vux-loader')
+const webpackConfig = originalConfig // 原来的 module.exports 代码赋值给变量 webpackConfig
+
+module.exports = vuxLoader.merge(webpackConfig, {
+  plugins: ['vux-ui']
+})

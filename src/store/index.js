@@ -14,4 +14,17 @@ const store = new Vuex.Store({
   mutations,
   actions
 })
+
+// 注册一个module来保存状态
+store.registerModule('vux', { 
+  state: {
+    isLoading: false
+  },
+  mutations: {
+    updateLoadingStatus (state, payload) {
+      state.isLoading = payload.isLoading
+    }
+  }
+})
+
 export default store

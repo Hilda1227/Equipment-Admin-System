@@ -4,15 +4,20 @@ import Vue    from 'vue'
 import App    from './App'
 import router from './router'
 import store  from './store'
-import weui   from 'weui.js'
 import        './assets/css/index.scss'
-
-// 将weui挂载在Vue原型上，方便全局引用
-Vue.prototype.weui = weui;  
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+
+router.beforeEach(function (to, from, next) {
+  store.commit('updateLoadingStatus', {isLoading: true})
+  next()
+})
+
+router.afterEach(function (to) {
+  store.commit('updateLoadingStatus', {isLoading: false})
+})
 
 new Vue({
   el: '#app',
