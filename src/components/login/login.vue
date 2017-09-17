@@ -1,55 +1,53 @@
 <template>
   <div class="login">
-    <div class="weui-cells weui-cells_form">
-
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label">账号</label>
-        </div>
-        <div class="weui-cell__bd">
-            <input class="weui-input" v-model='acount' type="tel" required placeholder="请输入输账号"/>
-        </div>
-        <div class="weui-cell__ft"><i class="weui-icon-warn"></i></div>
-      </div> 
-
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label">密码</label>
-        </div>
-        <div class="weui-cell__bd">
-            <input class="weui-input" v-model='password' type="tel" required placeholder="请输入密码"/>
-        </div>
-        <div class="weui-cell__ft"><i class="weui-icon-warn"></i></div>
-      </div>
-
-      <div class="weui-cell weui-cell_switch">
-        <div class="weui-cell__bd">记住账号</div>
-        <div class="weui-cell__ft">
-          <input class="weui-switch" type="checkbox"/>
-        </div>
-      </div>
-
-    </div>  
+    <group>
+      <x-input title="账号" v-model='user_name' type="text" placeholder="请输入输账号" required></x-input>
+      <x-input title="密码" v-model="password" type="password" placeholder="请输入密码" required></x-input>     
+    </group>  
+    <check-icon :value.sync="remember">记住账号</check-icon>  
     <div class="weui-btn-area">
         <a @click="submit" href="javascript:" class="weui-btn weui-btn_primary">登录</a>
     </div>   
   </div>
 </template>
 <script>
-  import {mapActions} from 'vuex'
+  import {mapActions, mapState} from 'vuex'
+  import {Group, CheckIcon, XInput} from 'vux'
   export default {
     data() {
       return {
-        acount: '',
-        password: ''
+        user_name: '',
+        password: '',
+        remember: false
       }
+    },
+    components: {
+      CheckIcon,
+      XInput,
+      Group
+    },
+    computed: {
+      ...mapState(['user'])
+
+    },
+    created() {
+      if(localStorage.user_name){
+        this.user_name = localStorage.getItem('user_name')
+      }      
     },
     methods: {
       ...mapActions(['login']),
       submit() {
-        const user = {acount: this.acount, password: this.password}
+        if(this.remember){ localStorage.setItem('user_name', this.user_name)}
+        else {delete localStorage.user_name;}
+        const user = {user_name: this.user_name, password: this.password}
         this.login(user)
       }
     }
   }
 </script>
+<style lang="scss" scope>
+  .vux-check-icon{
+    margin: 1rem 0 0 .5rem;
+  }
+</style>

@@ -2,6 +2,7 @@
   <div class="list">
 
     <search @on-focus="clickSearch"></search>
+    
     <div class="weui-panel weui-panel_access">
       <div class="weui-panel__bd">
         <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
@@ -21,19 +22,27 @@
   </div>
 </template>
 <script>
-  import { mapActions } from 'vuex'
+  import { mapActions, mapStates } from 'vuex'
   import { Search, XButton } from 'vux'
   export default {
     data() {
       return {
-        
+        page: 1,
+        number: 10
       }
     },
+    // computed: {
+    //   ...mapStates(['indexList'])
+    // },
     components: {
       Search,
       XButton
     },
+    created() {
+      this.getIndexList({page: this.page, number: this.number})
+    },
     methods: {
+      ...mapActions(['getIndexList']),
       clickSearch() {
         this.$router.push({name: 'search'})
       }
@@ -44,10 +53,6 @@
     a.weui-media-box{
       position: relative !important;
     }
-
-    // .weui-media-box_appmsg .weui-media-box__hd{
-    //   width: 90px;
-    // }
     p{
       margin-top: 6px;
     }

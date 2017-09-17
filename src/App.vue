@@ -2,21 +2,24 @@
   <div id="app">
     <router-view></router-view>
     <loading v-model="isLoading"></loading>
+    <alert :value="alert.value" :content="alert.content" :title="alert.title"></alert>
   </div>
 </template>
 
 <script>
-import { Loading } from 'vux'
+import { Loading, Alert } from 'vux'
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    Loading
+    Loading,
+    Alert
   },
   computed: {
-    ...mapState({
-      isLoading: state => state.vux.isLoading
-    })
+    ...mapState([
+      'isLoading',
+      'alert'
+    ])
   }
 }
 </script>

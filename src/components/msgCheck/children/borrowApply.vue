@@ -17,6 +17,7 @@ export default {
 <style lang="scss" scope>
   .borrow-apply-item{
     position: relative;
+    padding: 0px .8rem;
     width: 100%;
     height: 4rem;
     background-color: #fff;
@@ -42,12 +43,12 @@ export default {
     }
     .dev{
       color:#a9a9a9;
-      margin: auto 2.6rem;
+      // margin: auto 2.6rem;
     }
     .result{
       color:#e60012;
       position: relative;
-      margin-right: 2.6rem;
+      // margin-right: 2.6rem;
      
     }
     .arrow{
