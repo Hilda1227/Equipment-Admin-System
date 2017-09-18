@@ -22,27 +22,28 @@
   </div>
 </template>
 <script>
-  import { mapActions, mapStates } from 'vuex'
+  import { mapActions, mapState } from 'vuex'
   import { Search, XButton } from 'vux'
   export default {
     data() {
       return {
         page: 1,
-        number: 10
+        number: 5
       }
     },
-    // computed: {
-    //   ...mapStates(['indexList'])
-    // },
     components: {
       Search,
       XButton
     },
-    created() {
+    computed: {
+      ...mapState(['user'])
+    },
+    mounted() {
       this.getIndexList({page: this.page, number: this.number})
+      
     },
     methods: {
-      ...mapActions(['getIndexList']),
+      ...mapActions(['getIndexList', 'login']),
       clickSearch() {
         this.$router.push({name: 'search'})
       }

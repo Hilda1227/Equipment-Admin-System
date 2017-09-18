@@ -18,20 +18,21 @@ export default {
     }, 
 
     login({ commit, state }, payload) {
-      axios.post('/api/user/login', payload)
+      return  axios.post('/api/user/login', payload)
       .then(res => {
         if(res.data.user_id){
-          commit('set_login', res.data); router.push('/index');
+          console.log("login1")
+          commit('set_login', res.data); router.push({path:'/index/list'})
         } else {
-          commit('set_alert', {value: true, title: '认证失败', content: '您输入的账号或密码有误，请确认后重新输入',})
+          commit('set_alert', {value: true, title: '认证失败', content: '您输入的账号或密码有误，请确认后重新输入'})
         }
       })
-      .catch(commit('set_alert', {value: true, title: '', content: '您输入的账号或密码有误，请确认后重新输入',}) )
+     
     }, 
     
     getIndexList({ commit, state }, payload) {
-      axios.post('/api/list', payload)
-      .then(() => { commit('set_indexList', payload); console.log(state.indexList)})
+      axios.post('/api/list/?page=1&number=5')
+      .then((res) => { commit('set_indexList', res.data); console.log(state.indexList)})
       .catch((err) => console.log(err) )
     }
 }
