@@ -7,5 +7,8 @@ export default {
   },
   set_alert(state, payload) {
     state.alert = payload;
+  },
+  set_devDetail(state, payload) {
+    state.devDetail = payload;
   }
 }

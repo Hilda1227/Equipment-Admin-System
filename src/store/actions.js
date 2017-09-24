@@ -1,6 +1,7 @@
 import Vue       from 'vue' 
 import router from '../router'
 import axios from 'axios'
+import {serialize} from '../../util.js'
 export default {
   
     register({ commit, state }, payload) {
@@ -31,8 +32,28 @@ export default {
     }, 
     
     getIndexList({ commit, state }, payload) {
-      axios.post('/api/list/?page=1&number=5')
-      .then((res) => { commit('set_indexList', res.data); console.log(state.indexList)})
-      .catch((err) => console.log(err) )
-    }
+      let query = serialize(payload);
+      return axios.post('/api/list'+ query)
+      .then((res) => { commit('set_indexList', res.data); console.log(res.data)})
+      .catch((err) => {console.log(err) })
+    },
+
+    getDevDetail({commit, state}, equ_id) {
+      return axios.get('/api/equ/' + equ_id)
+      .then((res) => { commit('set_devDetail', res.data)})
+      .catch((err) => {console.log(err) })
+    },
+
+    getClubDev({commit, state}, equ_id) {
+      return axios.get('/api/user/<user_id>/borrow_equipmengts' + equ_id)
+      .then((res) => { commit('set_devDetail', res.data)})
+      .catch((err) => {console.log(err) })
+    },
+
+    addClubDev({commit, state}, payload) {
+      console.log(payload)
+      // return axios.post('/api/equ')
+      // .then((res) => { })
+      // .catch((err) => {console.log(err) })
+    },
 }

@@ -10,4 +10,7 @@ export default {
     content: '',
   },
   indexList: [],
+  devDetail: {
+
+  },
 }

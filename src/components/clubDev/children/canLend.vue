@@ -3,12 +3,13 @@
     <panel :list="list" :type="type"></panel>
     <div class="add-dev">
       <img src="../../../assets/img/add.png"></img>
-      <x-button mini plain type="primary">添加设备</x-button>
+      <x-button @click.native="$router.push({name: 'addDev', params:{type: 'add', dev_id:'add'}})" mini plain type="primary">添加设备</x-button>
     </div>
   </div>
 </template>
 <script>
 import { Panel, XButton } from 'vux'
+import { mapActions, mapState } from 'vuex'
 export default {
   components: {
     Panel,
@@ -22,12 +23,11 @@ export default {
           src: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3568257903,195274429&fm=27&gp=0.jpg",
           title: '标题一',
           desc: '库存',
-          url: '/'
+          url: "/addDev/modify/5"
         }
       ],
     }
-  }
-  
+  },
 }
 </script>
 <style lang="scss" scoped>

@@ -1,19 +1,15 @@
 <template>
   <div class="msg-check">
-    <tab active-color="#eb6100" defaultColor="#a9a9a9">
-      <tab-item selected @on-item-click="$router.push({name: 'lendApply'})">借出申请</tab-item>
-      <tab-item @on-item-click="$router.push({name: 'borrowApply'})">借用申请</tab-item>
-    </tab>
+    <ul class="nav-3">
+      <router-link tag="li" :to="{name: 'lendApply'}">借出申请</router-link>
+      <router-link tag="li" :to="{name: 'borrowApply'}">借用申请</router-link>
+    </ul>
     <router-view></router-view>
   </div>
 </template>
 <script>
-import { Tab, TabItem } from 'vux'
 export default {
-  components: {
-    Tab,
-    TabItem
-  }
+
 }
 </script>
 <style lang="scss" scoped>

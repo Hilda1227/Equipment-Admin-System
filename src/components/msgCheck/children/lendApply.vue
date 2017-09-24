@@ -1,6 +1,6 @@
 <template>
   <div class=" wrap lend-apply">
-    <div class="lend-apply-item">
+    <div class="lend-apply-item" @click="check(3)">
       <span class="club-name">月芽</span>
       <span class="dev">借用投影仪</span>
       <x-button mini plain type="primary">可借</x-button>
@@ -12,6 +12,11 @@ import {XButton} from 'vux'
 export default {
   components: {
     XButton
+  },
+  methods: {
+    check(dev_id) {
+      this.$router.push({name: 'lendApplyDetail', params: {dev_id}})
+    }
   }
 }
 </script>

@@ -1,10 +1,5 @@
 <template>
   <div class="mine">
-    <!-- <tab active-color="#fff" defaultColor="#8eda99" :line-width=0>
-      <tab-item selected @on-item-click="$router.push({name: 'clubDev'})">社团设备</tab-item>
-      <tab-item @on-item-click="$router.push({name: 'borrowDev'})">借入设备</tab-item>
-      <tab-item @on-item-click="$router.push({name: 'msgCheck'})">消息审核</tab-item>
-    </tab> -->
     <ul class="nav-1">
       <router-link tag="li" :to="{name: 'clubDev'}">社团设备</router-link>
       <router-link tag="li" :to="{name: 'borrowDev'}">借入设备</router-link>
@@ -32,6 +27,12 @@
   }
 </script>
 <style lang="scss" scoped>
+.mine{
+  flex-grow: 1;
+   white-space: nowrap;
+   position: relative;
+  
+}
 .nav-1{
   position: relative;
   height: 40px;

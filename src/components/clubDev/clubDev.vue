@@ -1,11 +1,11 @@
 <template>
   <div class="club-dev">
-    <tab active-color="#eb6100" defaultColor="#a9a9a9">
-      <tab-item selected @on-item-click="$router.push({name: 'canLend'})">未借出</tab-item>
-      <tab-item @on-item-click="$router.push({name: 'hasLend'})">已借出</tab-item>
-      <tab-item @on-item-click="$router.push({name: 'hasTimeout'})">已逾期</tab-item>
-      <tab-item @on-item-click="$router.push({name: 'waitComfirm'})">待确认</tab-item>
-    </tab>
+    <ul class="nav-3">
+      <router-link tag="li" :to="{name: 'canLend'}">未借出</router-link>
+      <router-link tag="li" :to="{name: 'hasLend'}">已借出</router-link>
+      <router-link tag="li" :to="{name: 'hasTimeout'}">已逾期</router-link>
+      <router-link tag="li" :to="{name: 'waitComfirm'}">待确认</router-link>
+    </ul>
     <router-view></router-view>
   </div>
 </template>

@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="index-wrap">
     <router-view></router-view>
-    <tabbar>     
-      <tabbar-item selected link="/index/list">
+    <tabbar style="height: 3.5rem">     
+      <tabbar-item link="/index/list">
         <img slot="icon-active" src="../../assets/img/home_hover.png">
         <img slot="icon" src="../../assets/img/home.png">
         <span slot="label">首页</span>
@@ -39,5 +39,20 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+.index-wrap{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  position: relative;
 
+}
+.weui-tabbar{
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+}
 </style>

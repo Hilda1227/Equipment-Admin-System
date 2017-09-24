@@ -1,6 +1,6 @@
 <template>
   <div class=" wrap borrow-apply">
-    <div class="borrow-apply-item">
+    <div @click="$router.push({name: 'feedback', params: {type, dev_id: 2}})" class="borrow-apply-item">
       <span class="club-name">月芽</span>
       <span class="dev">借用投影仪</span>
       <span class="result">否决</span>
@@ -11,7 +11,11 @@
 <script>
 
 export default {
- 
+ data() {
+   return {
+     type: 'see'
+   }
+ }
 }
 </script>
 <style lang="scss" scope>

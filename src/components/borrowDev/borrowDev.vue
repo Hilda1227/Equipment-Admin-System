@@ -1,11 +1,11 @@
 <template>
   <div class="borrow-dev">
-    <tab active-color="#eb6100" defaultColor="#a9a9a9">
-      <tab-item selected @on-item-click="$router.push({name: 'borrowing'})">借用中</tab-item>
-      <tab-item @on-item-click="$router.push({name: 'checking'})">已逾期</tab-item>
-      <tab-item @on-item-click="$router.push({name: 'hasTimeoutReturn'})">审核中</tab-item>
-      <tab-item @on-item-click="$router.push({name: 'waitComfirmReturn'})">待确认</tab-item>
-    </tab>
+    <ul class="nav-3">
+      <router-link tag="li" :to="{name: 'borrowing'}">借用中</router-link>
+      <router-link tag="li" :to="{name: 'hasTimeoutReturn'}">已逾期</router-link>
+      <router-link tag="li" :to="{name: 'checking'}">审核中</router-link>
+      <router-link tag="li" :to="{name: 'waitComfirmReturn'}">待确认</router-link>
+    </ul>
     <router-view></router-view>
   </div>
 </template>

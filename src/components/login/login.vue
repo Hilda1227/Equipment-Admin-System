@@ -32,7 +32,8 @@
     },
     created() {
       if(localStorage.user_name){
-        this.user_name = localStorage.getItem('user_name')
+        this.user_name = localStorage.getItem('user_name');
+        this.remember = true;
       }      
     },
     methods: {

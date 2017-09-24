@@ -3,21 +3,22 @@
 
     <search @on-focus="clickSearch"></search>
     
-    <div class="weui-panel weui-panel_access">
+    <div v-for="item in indexList.content" class="weui-panel weui-panel_access">
       <div class="weui-panel__bd">
         <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
           <div class="weui-media-box__hd">
-            <img class="weui-media-box__thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAeFBMVEUAwAD///+U5ZTc9twOww7G8MYwzDCH4YcfyR9x23Hw+/DY9dhm2WZG0kbT9NP0/PTL8sux7LFe115T1VM+zz7i+OIXxhes6qxr2mvA8MCe6J6M4oz6/frr+us5zjn2/fa67rqB4IF13XWn6ad83nxa1loqyirn+eccHxx4AAAC/klEQVRo3u2W2ZKiQBBF8wpCNSCyLwri7v//4bRIFVXoTBBB+DAReV5sG6lTXDITiGEYhmEYhmEYhmEYhmEY5v9i5fsZGRx9PyGDne8f6K9cfd+mKXe1yNG/0CcqYE86AkBMBh66f20deBc7wA/1WFiTwvSEpBMA2JJOBsSLxe/4QEEaJRrASP8EVF8Q74GbmevKg0saa0B8QbwBdjRyADYxIhqxAZ++IKYtciPXLQVG+imw+oo4Bu56rjEJ4GYsvPmKOAB+xlz7L5aevqUXuePWVhvWJ4eWiwUQ67mK51qPj4dFDMlRLBZTqF3SDvmr4BwtkECu5gHWPkmDfQh02WLxXuvbvC8ku8F57GsI5e0CmUwLz1kq3kD17R1In5816rGvQ5VMk5FEtIiWislTffuDpl/k/PzscdQsv8r9qWq4LRWX6tQYtTxvI3XyrwdyQxChXioOngH3dLgOFjk0all56XRi/wDFQrGQU3Os5t0wJu1GNtNKHdPqYaGYQuRDfbfDf26AGLYSyGS3ZAK4S8XuoAlxGSdYMKwqZKM9XJMtyqXi7HX/CiAZS6d8bSVUz5J36mEMFDTlAFQzxOT1dzLRljjB6+++ejFqka+mXIe6F59mw22OuOw1F4T6lg/9VjL1rLDoI9Xzl1MSYDNHnPQnt3D1EE7PrXjye/3pVpr1Z45hMUdcACc5NVQI0bOdS1WA0wuz73e7/5TNqBPhQXPEFGJNV2zNqWI7QKBd2Gn6AiBko02zuAOXeWIXjV0jNqdKegaE/kJQ6Bfs4aju04lMLkA2T5wBSYPKDGF3RKhFYEa6A1L1LG2yacmsaZ6YPOSAMKNsO+N5dNTfkc5Aqe26uxHpx7ZirvgCwJpWq/lmX1hA7LyabQ34tt5RiJKXSwQ+0KU0V5xg+hZrd4Bn1n4EID+WkQdgLfRNtvil9SPfwy+WQ7PFBWQz6dGWZBLkeJFXZGCfLUjCgGgqXo5TuSu3cugdcTv/HjqnBTEMwzAMwzAMwzAMwzAMw/zf/AFbXiOA6frlMAAAAABJRU5ErkJggg==">
+            <img class="weui-media-box__thumb" :src="item.pic_url">
           </div>
           <div class="weui-media-box__bd list_item item_info">
-              <h4 class="weui-media-box__title">投影仪</h4>
-              <p class="weui-media-box__desc"> 比特工场</p>
-              <p class="weui-media-box__desc"><span class="count">14</span>个剩余</p>
+              <h4 class="weui-media-box__title">{{item.name}}</h4>
+              <p class="weui-media-box__desc"> {{item.soc_name}}</p>
+              <p class="weui-media-box__desc"><span class="count">{{item.count}}</span>个剩余</p>
           </div>
-          <x-button mini plain type="primary">可借</x-button>
+          <x-button @click.native="toDetail(item.status, item.id)" mini plain type="primary" >{{item.status ? '可借' : '已借出'}}</x-button>
         </a>
-      </div>
+      </div>     
     </div> 
+    
      
   </div>
 </template>
@@ -36,23 +37,42 @@
       XButton
     },
     computed: {
-      ...mapState(['user'])
+      ...mapState(['indexList'])
     },
-    mounted() {
+    created() {
       this.getIndexList({page: this.page, number: this.number})
-      
+      // .then(() => {this.indexList.content[1].pic_url="http://img.hb.aicdn.com/9abd7ddf407f32c2273c359ff3327d2bbf02d2536426-56HKXf_sq320"})    
     },
     methods: {
       ...mapActions(['getIndexList', 'login']),
       clickSearch() {
         this.$router.push({name: 'search'})
+      },
+      toDetail(status, id) {
+        this.$router.push({name: status ? 'canLend' : 'rejectLend', params: {dev_id: id}})
       }
     }
   }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
+.list{
+  flex-grow: 1;
+  white-space: nowrap;
+  position: relative;
+  overflow: auto;
+}
     a.weui-media-box{
       position: relative !important;
+    }
+    .weui-panel__bd{
+      height: 7rem !important;
+    }
+    .weui-media-box__hd{
+      width: 5rem;
+      height: 5rem;
+    }
+    .item_info{
+      height: 5rem;
     }
     p{
       margin-top: 6px;
