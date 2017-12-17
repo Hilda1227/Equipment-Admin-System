@@ -10,7 +10,10 @@
     @on-focus="onFocus"
     @on-cancel="onCancel"
     ref="search"></search>
-    <div class="clear" v-show="results.length">清除搜索历史</div>
+    <div class="clear" 
+      ref='clear'
+      v-show="results.length"
+      @click='clear'>清除搜索历史</div>
   </div> 
 </template>
 <script>
@@ -32,16 +35,24 @@ export default {
     setFocus () {
       this.$refs.search.setFocus()
     },
-    resultClick (value) {
-      console.log(value)
-      // console.log(localStorage.getItem('searchResult'))
-      let record = JSON.parse(localStorage.getItem('searchResult')).push({key: value});
-      localStorage.setItem("searchResult", JSON.stringify(record));
-      this.$router.push({name: 'searchResult', params:{key: value}})
+    resultClick (item) {
+      let record = JSON.parse(localStorage.getItem('searchKeys')),
+          value = item.key;
+      record.push(item.key);
+      localStorage.setItem('searchKeys', JSON.stringify(record));
+      this.$router.replace({ name: 'searchResult', params:{key: value} })
     },
     getResult (val) {
-      this.results = getResult (val);
-       console.log(this.results)
+      let rs = [], reg = new RegExp(val);
+      if( localStorage.getItem('searchKeys') === null ) localStorage.setItem('searchKeys', '[]');
+      JSON.parse( localStorage.getItem('searchKeys') ).map((item) => {
+        if( reg.test(item) ) rs.push(item);
+      })
+      if( rs.indexOf(val) === -1 ) rs.unshift(val);
+      rs = rs.map((item) => {
+        return{ title: item, key: item };
+      })
+      this.results = rs;
     },
    
     onFocus () {
@@ -49,23 +60,13 @@ export default {
     },
     onCancel () {
       console.log('on cancel')
+    },
+    clear() {
+      localStorage.setItem('searchKeys', '[]');
+      this.results = [];
     }
   },
 
-}
-
-function getResult (val) {
-  let rs = [], reg = new RegExp(val, 'g');
-  if(!localStorage.searchResult){  
-    localStorage.setItem("searchResult", JSON.stringify([]));
-  }
-  // console.log(localStorage.getItem('searchResult'))
-  rs.push({key: val});
-  JSON.parse(localStorage.getItem('searchResult')).every((item) => {
-    if(reg.test(item.key)) rs.push(item)
-  })
-console.log(rs);
-  return rs
 }
 </script>
 <style lang="scss" scope>
@@ -77,15 +78,27 @@ console.log(rs);
   }
 }
 
-
-  .clear{
-    position: relative;
-    top: 0px;
-    text-align: center;
-    padding: 6px;
-    width: 100%;
-    background-color: #fff;
-    color: #666;
+.clear{
+  position: relative;
+  top: 0px;
+  text-align: center;
+  padding: 6px;
+  width: 100%;
+  background-color: #fff;
+  color: #666;
+  &::after{
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #E5E5E5;
+    color: #E5E5E5;
+    transform-origin: 0 0;
+    transform: scaleY(0.5);
+    left: 15px;
   }
+}
 
 </style>

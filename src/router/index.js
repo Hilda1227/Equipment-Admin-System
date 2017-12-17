@@ -17,7 +17,7 @@ import canLend  from '../components/clubDev/children/canLend.vue'
 import hasLend  from '../components/clubDev/children/hasLend.vue'
 import hasTimeout  from '../components/clubDev/children/hasTimeout.vue'
 import waitComfirm  from '../components/clubDev/children/waitComfirm.vue'
-import addDev from '../components/clubDev/children/children/addDev.vue'
+import editorDev from '../components/clubDev/children/children/editorDev.vue'
 import clubDevDetail from '../components/clubDev/children/children/clubDevDetail.vue'
 
 import borrowDev  from '../components/borrowDev/borrowDev.vue'
@@ -39,13 +39,18 @@ import systemFeedback  from '../components/common/systemFeedback.vue'
 Vue.use(Router);
 export default new Router({
     routes: [
+      { path: '/', redirect: {name: 'index'}},
       { path: '/login', name: "login", component: login},
       { path: '/register', name: "register", component: register},
+      // 首页
       { path: '/index', redirect: {name: 'list'}, name: "index", component: index,
         children: [
+          // 主页设备列表
           { path: 'list', name: 'list', component: list},
+          // 我的部分
           { path: 'mine', redirect: {name: 'clubDev'}, name: 'mine', component: mine,
             children: [
+              // 社团设备模块
               { path: 'clubDev', name: 'clubDev', component: clubDev, redirect: {name: 'canLend'},
                 children: [
                   {path: 'canLend', name: 'canLend', component: canLend},
@@ -54,6 +59,7 @@ export default new Router({
                   {path: 'waitComfirm', name: 'waitComfirm', component: waitComfirm},
                 ]
               },
+              // 借入设备模块
               {path: 'borrowDev', redirect: {name: 'borrowing'}, name: 'borrowDev', component: borrowDev,
                 children: [
                   {path: 'borrowing', name: 'borrowing', component: borrowing},
@@ -62,6 +68,7 @@ export default new Router({
                   {path: 'waitComfirmReturn', name: 'waitComfirmReturn', component: waitComfirmReturn},
                 ]
               },
+              // 消息审核模块
               {path: 'msgCheck', redirect: {name: 'lendApply'}, name: 'msgCheck', component: msgCheck,
                 children: [                 
                   {path: 'lendApply', name: 'lendApply', component: lendApply},
@@ -72,20 +79,30 @@ export default new Router({
           }
         ]
       },
+      // 设备详细信息
+      // type: 1.'canLend'：可借，2.'rejectLend': 不可借
       { path: '/devDetail/:type/:dev_id', name: 'devDetail',component: devDetail},
+      // 填写借用申请页
       { path: '/fillBorrowApply/:dev_id', name: 'fillBorrowApply', component: fillBorrowApply},
 
+      // 搜索模块
       { path: '/search', name: "search", component: search},
       { path: '/searchResult/:key', name: "searchResult", component: searchResult},
       
-      { path: '/addDev/:type/:dev_id', name: "addDev", component: addDev},
+      // 社团设备模块详情页
       { path: '/clubDevDetail/:type/:dev_id', name: "clubDevDetail", component: clubDevDetail},
+      { path: '/editorDev/:type/:dev_id', name: "editorDev", component: editorDev},
       
+      // 借入设备模块详情页
       { path: '/borrowDevDetail/:type/:dev_id', name: "borrowDevDetail", component: borrowDevDetail},
-      { path: '/lendApplyDetail/:dev_id', name: "lendApplyDetail", component: lendApplyDetail},
-      { path: '/feedback/:type/:dev_id', name: "feedback", component: feedback},
+      
+      // 消息审核模块详情页
+      { path: '/lendApplyDetail/:br_id', name: "lendApplyDetail", component: lendApplyDetail},
+      { path: '/feedback/:type/:br_id', name: "feedback", component: feedback},
+      { path: '/lendCheck/:br_id', name: "lendCheck", component: lendCheck},
+
+      // 系统反馈
       { path: '/systemFeedback', name: "systemFeedback", component: systemFeedback},
-      { path: '/lendCheck/:dev_id', name: "lendCheck", component: lendCheck},
     ]
 })
 

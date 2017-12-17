@@ -1,20 +1,33 @@
 <template>
   <div class=" wrap borrow-apply">
-    <div @click="$router.push({name: 'feedback', params: {type, dev_id: 2}})" class="borrow-apply-item">
-      <span class="club-name">月芽</span>
-      <span class="dev">借用投影仪</span>
+    <div 
+       v-for = 'item in borrowApplay' 
+       @click="$router.push({name: 'feedback', params: {type, br_id: item.br_id}})" 
+       class="borrow-apply-item"
+    >
+      <span class="club-name">{{ item.soc_name }}</span>
+      <span class="dev">{{ item.equ_name }}</span>
       <span class="result">否决</span>
       <div class="arrow"></div>
     </div>
   </div>
 </template>
 <script>
-
+import { mapActions, mapState } from 'vuex';
 export default {
  data() {
    return {
-     type: 'see'
+     type: 'view'
    }
+ },
+ computed: {
+   ...mapState(['borrowApplay'])
+ },
+ created() {
+      this.getMsgCheck({key: 2})   
+ },
+ methods: {
+   ...mapActions(['getMsgCheck']),
  }
 }
 </script>

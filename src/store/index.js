@@ -8,19 +8,7 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 axios.defaults.baseURL = 'http://115.159.147.103';
-axios.defaults.withCredentials = true
-
-// 拦截请求设置编码
-axios.interceptors.request.use(function (config) {
-  let query = ''
-  for (let key in config.data) {
-    query += encodeURIComponent(key) + '=' + encodeURIComponent(config.data[key]) + '&';
-  }
-  config.data = query
-  return config;
-});
-
-
+axios.defaults.withCredentials = true;
 
 const store = new Vuex.Store({
   state,

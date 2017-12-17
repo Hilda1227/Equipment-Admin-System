@@ -58,6 +58,8 @@ ul{ list-style:none}
   color: #a9a9a9;
   margin-bottom: 0.9rem;
   font-size: 0.95rem;
+  position: relative;
+  flex-shrink: 0;
   li{
     flex-grow: 1;
     line-height: 2.4rem;

@@ -1,43 +1,75 @@
 <template>
-  <div class=" wrap ">
+  <div>
     <group>
-      <x-input title="申请单位" placeholder="社团名字" required v-model="clubName"></x-input>
-      <x-input title="申请数量" placeholder="借用数量(最高为当前库存）" v-model="count"></x-input>
-      <x-input title="申请人" placeholder="申请人姓名"  required v-model="person"></x-input>
-      <x-input title="手机"  required ></x-input>
-      <x-input title="QQ" placeholder="输入QQ" required v-model="qq"></x-input> 
+      <x-input title="申请单位" placeholder="社团名字" required v-model="name"></x-input>
+      <popup-picker title="申请数量" placeholder="请选择" :data='choose_count' v-model='count'></popup-picker>    
+      <x-input title="申请人" placeholder="申请人姓名"  required v-model="user_name"></x-input>
+      <x-input title="手机" type="tel" required  v-model="phone_num"></x-input>
+      <x-input title="QQ" placeholder="输入QQ" required v-model="qq_num"></x-input> 
       <x-input title="使用地点" placeholder="设备使用地点" required v-model="place"></x-input>
-      <x-input title="归还日期"  placeholder="" required v-model="re_date"></x-input>                 
-      <x-textarea title="申请事由" placeholder="使用设备事由" :height="30" :max="200" v-model="apl_reason"></x-textarea>
+      <datetime title="归还日期" v-model='end_date' placeholder="请选择"></datetime>                 
+      <x-textarea title="申请事由" placeholder="使用设备事由" :height="30" :max="200" v-model="usage"></x-textarea>
     </group>
-    <x-button @click.native="submit()" type="primary">提交</x-button>
+      <x-button @click.native="submit()" type="primary">提交</x-button>
+    
   </div>
 </template>
 <script>
-import { XButton, Group, XInput, XTextarea} from 'vux'
+import { XButton, Group, XInput, XTextarea, Datetime, PopupPicker, Cell} from 'vux'
 import { mapActions, mapState } from 'vuex'
+
 export default {
   components: {
     XButton,
     XInput,
     Group,
-    XTextarea
+    XTextarea,
+    PopupPicker,
+    Datetime,
+    Cell,
+   
   },
   data() {
     return {
       dev_id: this.$route.params.dev_id,
       name: '',
-      count: void 0,
-      person: '',    
-      mobile: null,
-      qq: null,
+      count: [1],
+      user_name: '',    
+      phone: null,
+      qq_num: null,
+      phone_num: null,
       place: '',
-      re_date: '',
-      apl_reason: ''
+      end_date: '',
+      usage: '',      
     }
   },
+  computed: {
+    ...mapState(['devDetail', 'user_id']),
+    choose_count () {
+      let choose = [], count = this.devDetail.equ_msg.count;
+      for (let i = 1; i <=count; i++) {
+        choose.push({name: i + '', value: i});
+      }
+      return [choose];
+    },
+  },
   methods: {
-    submit() {},
+    ...mapActions(['esBorrowApply']),
+    submit() {
+      let apply_form = {
+          user_id: this.user_id,
+          equ_id: this.dev_id,
+          count: this.count[0],
+          usage: this.usage,
+          use_place: this.place,
+          end_date: '2017-12-18',
+          qq_num: this.qq_num,
+          phone_num: this.phone_num,
+          user_name: this.user_name
+          };
+          console.log(apply_form)
+      this.esBorrowApply(apply_form)
+    },
   }
 }
 </script>

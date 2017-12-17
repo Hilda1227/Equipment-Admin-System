@@ -18,7 +18,21 @@ export default {
   }
 }
 </script>
-<style lang="scss" >
+<style lang="scss" scope>
+  .club-dev{
+    flex-grow: 1;
+    white-space: nowrap;
+    position: relative;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    .wrap{
+      flex-grow: 1;
+      white-space: nowrap;
+      position: relative;
+      overflow: scroll;
+    }
+  }
 
 </style>
 

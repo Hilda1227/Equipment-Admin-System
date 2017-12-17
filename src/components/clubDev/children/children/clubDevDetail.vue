@@ -10,7 +10,7 @@
       <x-input title="负责人员" placeholder="负责人姓名" required v-model="place"></x-input>
       <x-input title="QQ" placeholder="输入QQ" required v-model="qq"></x-input> 
       <x-input title="手机" placeholder="输入手机" required v-model="qq"></x-input>       
-      <x-textarea title="注意事项" :height="30" :max="200" v-model="careful"></x-textarea>
+      <x-textarea title="注意事项" :height="30" :max="100" v-model="careful"></x-textarea>
     </group>
     <x-button @click.native="comfirm()" v-if="type === 'waitComfirm'" class="comfirm-btn" type="primary">已收到设备</x-button>
   </div>
@@ -30,7 +30,6 @@ export default {
       type: this.$route.params.type,
       dev_id: this.$route.params.dev_id,
       title:'',
-
       name: '',
       model: '',
       count: void 0,

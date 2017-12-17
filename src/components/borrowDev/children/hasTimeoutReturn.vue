@@ -4,7 +4,8 @@
   </div>
 </template>
 <script>
-import devList from '../../common/devList.vue'
+import devList from '../../common/devList.vue';
+import { mapActions, mapState } from 'vuex';
 export default {
   components: {
     devList
@@ -32,6 +33,15 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapState(['hasTimeoutReturn'])
+  },
+  created () {
+    this.getBorrowDev({ key: 3 })
+  },
+  methods: {
+    ...mapActions(['getBorrowDev'])
   }
 }
 </script>

@@ -1,24 +1,27 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <loading v-model="isLoading"></loading>
+    <loading :show="loading.show" :text="loading.text"></loading>
     <alert :value="alert.value" :content="alert.content" :title="alert.title"></alert>
+    <toast :value="toast.value" :type="toast.type" :is-show-mask="toast['is-show-mask']" :text="toast.text"></Toast>
   </div>
 </template>
 
 <script>
-import { Loading, Alert } from 'vux'
+import { Loading, Alert, Toast } from 'vux'
 import { mapState } from 'vuex'
 
 export default {
   components: {
     Loading,
-    Alert
+    Alert,
+    Toast
   },
   computed: {
     ...mapState([
-      'isLoading',
-      'alert'
+      'loading',
+      'alert',
+      'toast'
     ])
   }
 }
@@ -29,7 +32,7 @@ export default {
 #app {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 </style>

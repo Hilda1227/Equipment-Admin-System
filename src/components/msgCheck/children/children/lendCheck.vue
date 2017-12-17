@@ -1,11 +1,11 @@
 <template>
   <div class=" wrap ">
     <group>
-      <x-input readonly title="借用社团" :value="club"></x-input>
-      <x-input readonly title="借用设备" :value="dev"></x-input>
-      <x-input readonly title="借用数量" :value="count"></x-input>
+      <x-input readonly title = "借用社团" :value = "club"></x-input>
+      <x-input readonly title = "借用设备" :value = "dev"></x-input>
+      <x-input readonly title = "借用数量" :value = "count"></x-input>
     </group>   
-    <x-button  type="primary">确认移交设备</x-button> 
+    <x-button  type = "primary">确认移交设备</x-button> 
   </div>
 </template>
 <script>
@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      dev_id: this.$route.params.dev_id,
+      br_id: this.$route.params.br_id,
       club: '',
       dev: '',
       count: ''
@@ -33,7 +33,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 
 </style>
 

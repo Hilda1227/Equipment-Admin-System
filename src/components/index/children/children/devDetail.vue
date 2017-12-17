@@ -1,29 +1,35 @@
 <template>
   <div class=" wrap can-lend-detail">
     <ul class="detail-info">
-      <li><div class="dev"><span class="title">设备</span> <div class="dev-info"><span class="value">投影仪</span> <img/></div></div></li>
-      <li><span class="title">库存</span><span class="value count">23</span></li>
-      <li><span class="title">社团</span><span class="value"></span></li>     
-      <li><span class="title">使用地点</span><span class="value"></span></li>
-      <li><span class="title">用途</span><span class="value">dd</span></li>
+      <li><div class="dev"><span class="title">设备</span> <div class="dev-info"><span class="value">{{devDetail.equ_msg.name}}</span> <img :src="devDetail.equ_msg.pic_url"/></div></div></li>
+      <li><span class="title">库存</span><span class="value count">{{devDetail.equ_msg.count}}</span></li>
+      <li><span class="title">社团</span><span class="value">{{devDetail.equ_msg.soc_name}}</span></li>     
+      <li><span class="title">使用地点</span><span class="value">{{devDetail.equ_msg.place}}</span></li>
+      <li><span class="title">用途</span><span class="value"></span></li>
       <li><span class="title">负责人员</span><span class="value"></span></li>
       <li><span class="title">QQ</span><span class="value"></span></li>
       <li><span class="title">手机</span><span class="value"></span></li>
       <li  class="careful"><span class="title">注意事项</span><span class="value"></span></li>
-      <li @click="showLendRecord=!showLendRecord"><span class="title">在借记录</span><span class="value"></span></li>
+      <li @click="showLendRecord=!showLendRecord"><span class="title">在借记录</span><span class="value">{{devDetail.br_list[0]}}</span></li>
     </ul>
+    
      <div v-transfer-dom calss="record-dialog">
       <x-dialog v-model="showLendRecord">
         <p class="dialog-title">在借记录</p>
-        <div class="img-box" style="height:100px;padding:15px 0;overflow:scroll;-webkit-overflow-scrolling:touch;">
-          <p v-for="i in 20">{{i}}</p>
+        <div class="img-box">
+          <p v-for="i in devDetail.br_list">{{i}}</p>
         </div>
         <div @click="showLendRecord=false">
           <span class="vux-close"></span>
         </div>
       </x-dialog>
     </div>
-     <x-button v-if="type === 'canLend'" class="lend-btn" type="primary">我要借</x-button>
+
+    <x-button 
+      :disabled="type !== 'canLend'"
+      @click.native="$router.push({name: 'fillBorrowApply', params: {dev_id}})" 
+      class="lend-btn" type="primary">我要借
+    </x-button>
   </div>
 </template>
 <script>
@@ -138,8 +144,7 @@ export default {
     color: #666;
   }
   .img-box {
-    height: 350px;
-    overflow: hidden;
+    height:100px;padding:15px 0;overflow:scroll;-webkit-overflow-scrolling:touch;
   }
   .vux-close {
     margin-top: 8px;

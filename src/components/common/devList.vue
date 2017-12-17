@@ -9,16 +9,21 @@
               <li><span class="dev-item-info-left">借用日期</span><span class="dev-item-info-right">{{item.borrowDate}}</span></li>
               <li><span class="dev-item-info-left">归还日期</span><span class="dev-item-info-right">{{item.returnDate}}</span></li>
            </ul>
+           <img @click.stop="fresh()" v-if="$route.name === 'borrowing'" id="fresh" src="../../assets/img/refresh.png">
          </div> 
       </div>
   </div>
 </template>
 <script>
+
 export default {
   props: ['list'],
   methods: {
     goto(url) {
       this.$router.push(url);
+    },
+    fresh() {
+      console.log("刷新二维码")
     }
   }
 }
@@ -77,11 +82,21 @@ export default {
           }
         }
         .dev-item-info-left{
-          margin-right: 1.5rem;
+          margin-right: 1rem;
         }
       }
       
     }
+  }
+}
+#fresh{
+  width: 2rem;
+  height: 2rem; 
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  :hover{
+    opacity: 0.8;
   }
 }
 </style>

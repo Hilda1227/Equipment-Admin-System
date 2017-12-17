@@ -10,9 +10,9 @@
       <x-input readonly title="负责人员" placeholder="" v-model="place"></x-input>
       <x-input readonly title="QQ" placeholder="输入QQ" v-model="qq"></x-input> 
       <x-input readonly title="手机" placeholder="输入手机" v-model="qq"></x-input>       
-      <x-textarea readonly title="注意事项" :height="30" :max="200" v-model="careful"></x-textarea>
+      <x-textarea readonly title="注意事项" :height="30" :max="100" v-model="careful"></x-textarea>
     </group>
-    <x-button @click.native="active()" :disabled="type==='checking'" class="btn" type="primary">{{btn_text}}</x-button>
+    <x-button @click.native="active()" :disabled="type==='checking' || type==='waitComfirmReturn'" class="btn" type="primary">{{btn_text}}</x-button>
   </div>
 </template>
 <script>
@@ -56,7 +56,7 @@ export default {
 		this.title = "等待通过审核"; this.btn_text = "审核中";
 		break;
       case "waitComfirmReturn":
-        this.title = "借用时间，剩余n天"; this.btn_text = "提前还";
+        this.title = "已移交于借出社团"; this.btn_text = "正在途中";
 		break;
 	}	
   },

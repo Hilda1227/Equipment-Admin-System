@@ -1,22 +1,35 @@
 <template>
   <div class=" wrap lend-apply">
-    <div class="lend-apply-item" @click="check(3)">
-      <span class="club-name">月芽</span>
-      <span class="dev">借用投影仪</span>
+    <div class="lend-apply-item" 
+      v-for = 'item in  lendApply'
+      @click = "$router.push({name: 'lendApplyDetail', params: {br_id: item.br_id}})"     
+    >
+      <span class="club-name">{{ item.soc_name }}</span>
+      <span class="dev">{{ item.equ_name }}</span>
       <x-button mini plain type="primary">可借</x-button>
     </div>
   </div>
 </template>
 <script>
-import {XButton} from 'vux'
+import {XButton} from 'vux';
+import { mapActions, mapState } from 'vuex';
 export default {
   components: {
     XButton
   },
   methods: {
-    check(dev_id) {
-      this.$router.push({name: 'lendApplyDetail', params: {dev_id}})
+    check(br_id) {
+      this.$router.push({name: 'lendApplyDetail', params: {br_id}})
     }
+  },
+  computed: {
+   ...mapState(['lendApply'])
+ },
+  created() {
+      this.getMsgCheck({ key: 1 })   
+ },
+  methods: {
+   ...mapActions(['getMsgCheck']),
   }
 }
 </script>

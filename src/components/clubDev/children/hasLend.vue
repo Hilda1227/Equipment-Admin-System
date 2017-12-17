@@ -4,37 +4,43 @@
   </div>
 </template>
 <script>
-import devList from '../../common/devList.vue'
+import { mapActions, mapState } from 'vuex';
+import devList from '../../common/devList.vue';
+function list (equ_list) {
+  return equ_list.map(item => {
+    return {
+      src: item.pic_url,
+      devName: item.name,
+      state: item.status,
+      clubName: item.belong_soc,
+      borrowDate: '2017年2月10日',
+      returnDate: '2017年2月13日',
+      url: '/clubDevDetail/hasLend/1'
+    }
+  })
+}
 export default {
   components: {
     devList
   },
   data() {
     return {
-      list: [
-        {
-          src: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3568257903,195274429&fm=27&gp=0.jpg",
-          devName: "展板",
-          state: "归还，等待确认",
-          clubName: '比特工场',
-          borrowDate: '2017年2月10日',
-          returnDate: '2017年2月13日',
-          url: '/clubDevDetail/hasLend/1'
-        },
-        {
-          src: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3568257903,195274429&fm=27&gp=0.jpg",
-          devName: "展板",
-          state: "归还，等待确认",
-          clubName: '比特工场',
-          borrowDate: '2017年2月10日',
-          returnDate: '2017年2月13日',
-          url: '/clubDevDetail/hasLend/2'
-        }
-      ]
+      list: []
     }
+  },
+  created() {
+    this.getClubDev({key: 2})
+    .then((equ_list) => {
+      console.log('已借出',equ_list)
+      this.list = list(equ_list);
+    })
+  },
+  methods: {
+    ...mapActions(['getClubDev']),
   }
 }
 </script>
+
 <style lang="scss" scoped>
 
 </style>

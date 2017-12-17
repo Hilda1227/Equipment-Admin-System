@@ -1,14 +1,14 @@
 <template>
-  <div class=" wrap add-dev">
+  <div class=" wrap editor-dev">
     <group>
-      <x-input title="社团设备" placeholder="完整名称" required v-model="name"></x-input>
+      <x-input title="社团设备" placeholder="完整名称" required v-model="equ_name"></x-input>
       <x-input title="设备型号" placeholder="选填" v-model="model"></x-input>
-      <x-input title="设备数量" placeholder="可借用设备数量" type="number" required v-model="count"></x-input>
-      <x-input title="负责人" is-type="china-name" placeholder="负责人姓名" required v-model="person"></x-input>
-      <x-input title="手机" is-type="china-mobile" placeholder="输入手机" required v-model="mobile"></x-input>
-      <x-input title="QQ" placeholder="输入QQ" required v-model="qq"></x-input>     
+      <x-input title="设备数量" placeholder="可借用设备数量" type="number" required v-model="equ_count"></x-input>
+      <x-input title="负责人" is-type="china-name" placeholder="负责人姓名" required v-model="resp_person"></x-input>
+      <x-input title="手机" is-type="china-mobile" placeholder="输入手机" required v-model="phone_num"></x-input>
+      <x-input title="QQ" placeholder="输入QQ" required v-model="qq_num"></x-input>     
       <x-input title="存放地点" placeholder="" required v-model="place"></x-input>
-      <x-textarea title="注意事项" :height="30" :max="200" v-model="careful"></x-textarea>
+      <x-textarea title="注意事项" :height="30" :max="100" v-model="careful"></x-textarea>
       <div class="dev-img">
           <label for="upload">设备图片</label >
           <div id="choose-img"><img src="../../../../assets/img/add_dev.png"/><input @change="chooseImg()" id="upload" type="file"></input></div>
@@ -34,28 +34,36 @@ export default {
     return {
       type: this.$route.params.type,
       dev_id: this.$route.params.dev_id, 
-      name: '',
+      equ_name: '',
       model: '',
-      count: void 0,
-      person: '',    
-      mobile: null,
-      qq: null,
+      equ_count: void 0,
+      resp_person: '',    
+      phone_num: null,
+      qq_num: null,
       place: '',
       careful: '',
       pic_url: '',
       cant_lend: false
     }
   },
+  computed: {
+    ...mapState(['devDetail'])
+  },
   created(){
-    console.log(this.type, this.dev_id)
+    if(this.type = 'modify'){
+      this.getDevDetail(this.dev_id)
+      .then(() => {
+        console.log(this.devDetail)
+      })
+    }
   },
   methods: {
-    ...mapActions(['addClubDev']),
+    ...mapActions(['addClubDev', 'getDevDetail']),
     // 选择图片预览
     chooseImg() {
-      let upload = document.querySelector('#upload'),
+      let upload  = document.querySelector('#upload'),
           preview = document.querySelector('img'),
-          file = upload.files[0],          
+          file    = upload.files[0],          
           reader  = new FileReader();
 
       this.pic_url = upload.value;
@@ -66,8 +74,11 @@ export default {
       if (file) reader.readAsDataURL(file);
     },
     submit() {
-      const info = {name: this.name, model: this.model, count: this.count, person: this.person, mobile: this.mobile, qq: this.qq, place: this.place, careful: this.careful, pic_url: this.pic_url};
-      this.addClubDev(info);
+      // const info = {equ_name: this.equ_name, model: this.model, equ_count: this.equ_count,
+      //               resp_person: this.resp_person, phone_num: this.phone_num, qq_num: this.qq_num,
+      //               place: this.place, careful: this.careful, pic_url: this.pic_url
+      //            };  
+      // this.addClubDev(info);
     }
   }
 }
@@ -112,7 +123,6 @@ export default {
         display: inline-block;
     }   
 }
-
 .lend-btn{
   margin-top: 0.5rem !important;
   width: 90%;
