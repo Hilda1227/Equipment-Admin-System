@@ -1,10 +1,10 @@
-import Vue       from 'vue'
-import Vuex      from 'vuex'
-import state    from './states.js'
-import getters   from './getters.js'
-import mutations from './mutations.js'
-import actions   from './actions.js'
-import axios from 'axios'
+import Vue       from 'vue';
+import Vuex      from 'vuex';
+import state    from './states.js';
+import getters   from './getters.js';
+import mutations from './mutations.js';
+import actions   from './actions.js';
+import axios from 'axios';
 
 Vue.use(Vuex)
 axios.defaults.baseURL = 'http://115.159.147.103';

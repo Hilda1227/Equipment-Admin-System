@@ -1,17 +1,61 @@
 export default {
-  formList (state) {
-    return (list, page, type) => {
-      return equ_list.map(item => {
-        return {
-          src: item.pic_url,
-          devName: item.name,
-          state: item.status,
-          clubName: item.belong_soc,
-          borrowDate: '2017年2月10日',
-          returnDate: '2017年2月13日',
-          url: '/clubDevDetail/hasLend/1'
-        }
-      })
-    }
+  canLend(state) {
+    return state.canLend.map(item => ({
+      src: item.pic_url,
+      title: item.name,
+      count: item.count,
+      url: `/editorDev/modify/${item.id}`
+    }))
+  }, 
+  hasLend(state) {
+    return state.hasLend.map(item => ({
+      ...item,
+      state: `借用时长，剩余${item.surplus_day}天`,
+      url: `/clubDevDetail/hasLend/${item.id}`
+    }))
+  }, 
+  hasTimeout(state) {
+    return state.hasTimeout.map(item => ({
+      ...item,
+      state: '对方已逾期',
+      url: '/clubDevDetail/hasTimeout/1'
+    }))
+  }, 
+  waitComfirm(state) {
+    return state.waitComfirm.map(item => ({
+      ...item,
+      state: '请确认设备',
+      url: '/clubDevDetail/waitComfirm/1'
+    }))
+  }, 
+  
+
+  borrowing(state) {
+    return state.borrowing.map(item => ({
+      ...item,
+      state: `借用时长，剩余${item.surplus_day}天`,
+      url: `/borrowDevDetail/borrowing/${item.br_id}`
+    }))
+  },
+  checking(state) {
+    return state.checking.map(item => ({
+      ...item,
+      state: '等待审核',
+      url: `/borrowDevDetail/checking/${item.br_id}`
+    }))
+  },
+  hasTimeoutReturn(state) {
+    return state.hasTimeoutReturn.map(item => ({
+      ...item,
+      state: '已逾期，请尽快归还',
+      url: `/borrowDevDetail/hasTimeoutReturn/${item.br_id}`
+    }))
+  },
+  waitComfirmReturn(state) {
+    return state.waitComfirmReturn.map(item => ({
+      ...item,
+      state: '归还中，等待确认',
+      url: `/borrowDevDetail/waitComfirmReturn/${item.br_id}`
+    }))
   }
 }

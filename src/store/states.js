@@ -19,7 +19,19 @@ export default {
   indexList: [],
   searchList: [],
   devDetail: {
-
+    br_list: [], 
+    equ_msg: {
+      name: '',
+      model: '',
+      count: '',
+      resp_person: '',
+      phone_num: '',
+      qq_num: '',
+      place: '',
+      pic_url: '',
+      status: 1, 
+      notice: ''
+    }
   },
   // 社团设备
   canLend: [],
@@ -36,6 +48,12 @@ export default {
   // 消息审核
   borrowApplay: [],
   lendApply: [],
-  feedBack: [],
-  lendApplyDetail: {}
+  feedBack: {
+    back_msg: '', 
+    confirm_time: '', 
+    in_soc_name: '', 
+    out_soc_name: ''
+  },
+  operationDetail: {},
+
 }

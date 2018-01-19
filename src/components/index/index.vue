@@ -1,27 +1,28 @@
 <template>
   <div class="index-wrap">
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+
+    <keep-alive><router-view></router-view></keep-alive>
+
     <div class="foot-nav">
        <router-link @click.native="isHome=true" to="/index/list" tag="div" class="nav-item">
           <img v-if="isHome" src="../../assets/img/home_hover.png"/>
           <img v-else src="../../assets/img/home.png">
-          <span>首页</span>
+          <span :class="{active: isHome}">首页</span>
        </router-link>
+
        <router-link @click.native="isHome=false" to="/index/mine" tag="div" class="nav-item">
           <img v-if="!isHome" src="../../assets/img/mine_hover.png">
           <img v-else src="../../assets/img/mine.png">
-          <span>我的</span>
+          <span :class="{active: !isHome}">我的</span>
        </router-link>
     </div>
     <div class="bottom"></div>
+    
   </div>
 </template>
 
 <script>
-import { Tabbar, TabbarItem} from 'vux'
-
+import { Tabbar, TabbarItem} from 'vux';
 export default {
   components: {
     Tabbar,
@@ -67,7 +68,7 @@ export default {
     }
     span{
       text-align: center;
-      color: #999999;
+      color: #999;
       font-size: 0.8rem;
       line-height: 0.8rem;
       margin-top: 0.2rem;    
@@ -82,5 +83,8 @@ export default {
   flex-grow: 0;
   bottom: 0px;
    z-index: 9;
+}
+span.active{
+  color: #189f17 !important;
 }
 </style>

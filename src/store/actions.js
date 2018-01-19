@@ -24,8 +24,7 @@ export default {
         } else {
           commit('set_alert', {value: true, title: '认证失败', content: '您输入的账号或密码有误，请确认后重新输入'})
         }
-      })
-     
+      })    
     }, 
     // 获取主页设备信息列表
     getIndexList ({ commit, state }, payload) {
@@ -42,9 +41,9 @@ export default {
     // 获取搜索结果列表
     getSearchList ({ commit, state }, payload) {
       commit('set_loading', {show: true, text: "加载中"})
-      return axios.post('/api/search/'+ payload.key)
+      return axios.get('/api/search/'+ payload.key)
       .then((res) => {
-        commit('set_searchList', res.data); console.log(res.data);
+        commit('set_searchList', res.data.content);
         commit('set_loading', {show: false})
       })
       .catch((err) => {console.log(err) })
@@ -64,9 +63,11 @@ export default {
 
     // 创建新的借用申请
     esBorrowApply ({commit, state}, payload) {
+      commit('set_loading', {show: true, text: "正在提交"});
       return axios.post('/api/operation/borrow/', formData(payload))
       .then((res) => {
         if(res.data.br_id){
+          commit('set_loading', { show: false });
           commit('set_toast',{value: true, type: 'success', 'is-show-mask': true, text: '提交成功',});
           setTimeout(() => {router.push({name: 'list'})}, 2000)          
         }
@@ -96,14 +97,29 @@ export default {
     getBorrowDev ({commit, state}, payload) {
       commit('set_loading', {show: true, text: "加载中"});
       let query = serialize(payload),
-          types = ['borrowing', 'checking', 'hasTimeoutReturn', 'hasTimeoutReturn'];
+          types = ['borrowing', 'hasTimeoutReturn', 'checking', 'hasTimeoutReturn'];
       return axios.get(`/api/user/${state.user_id}/borrowed_equipments` + query)
         .then((res) => {
-          console.log(res.data)
+          console.log(`set_${types[payload.key-1]}`,res.data.message_list)
           commit(`set_${types[payload.key-1]}`, res.data.message_list);
           commit('set_loading', { show: false });
+          return res.data.message_list;
         })
         .catch((err) => {console.log(err) })
+    },
+
+    priorReturn ({commit, state}, payload) {
+      commit('set_loading', {show: true, text: "正在提交"});
+      return axios.get(`/api/operation/${payload.br_id}/return`)
+        .then((res) => {
+          commit('set_loading', { show: false });
+          commit('set_toast',{value: true, type: 'success', 'is-show-mask': true, text: '提交成功',});
+        })
+        .catch((err) => {
+          console.log(err) 
+          commit('set_loading', { show: false });
+          commit('set_toast',{value: true, type: 'warn', 'is-show-mask': true, text: '设备当前状态不支持归还',});
+        })
     },
 
     getMsgCheck ({commit, state}, payload) {
@@ -127,26 +143,77 @@ export default {
       })
     },
 
-    getlendApplyDetail ({commit, state}, payload) {
-      return axios.get(`/api/operation/${payload.br_id}/detail`)
+    getOperationDetail ({commit, state}, payload) {
+      return axios.get(`/api/operation/${payload.br_id}/detail/?type=${payload.type}`)
       .then(res => {
-        console.log(res.data);
-        commit('set_lendApplyDetail', res.data)
+        commit('set_operationDetail', res.data)
       })
     },
 
     confirmApply ({commit, state}, payload) {
       return axios.post(`api/operation/${payload.br_id}/confirm`, formData(payload.params))
       .then(res => {
-        console.log(res.data);
-        commit('set_lendApplyDetail', res.data)
+        if(res.data.confirm){
+          commit('set_toast',{value: true, type: 'success', 'is-show-mask': true, text: '提交成功',});
+          setTimeout(() => {router.push({name: 'lendApply'})}, 2000)
+        }
+        if(res.data.status){
+          commit('set_toast',{value: true, type: 'text', 'is-show-mask': true, text: '请求已被处理过',});
+        }
       })
+    },
+
+    upload({commit, state}, payload) {
+      return axios.post('api/upload/', formData(payload))
+      .then(res => {
+        console.log(res.data);
+        return res.data;
+      })
+    },
+
+    modifyInfo({commit, state}, payload) {
+      commit('set_loading', {show: true, text: "正在提交"});
+      console.log(payload)
+      return axios.post('api/equ/' + payload.equ_id + '/', formData(payload.equ))
+      .then(res => {
+        commit('set_loading', {show: false});
+        commit('set_toast',{value: true, type: 'success', 'is-show-mask': true, text: '提交成功',});
+        setTimeout(() => {router.push({name: 'canLend'})}, 2000) 
+      })
+      .catch(err => console.log(err))
     },
 
     addClubDev({commit, state}, payload) {
       console.log(payload)
-      // return axios.post('/api/equ')
-      // .then((res) => { })
-      // .catch((err) => {console.log(err) })
+      return axios.post('api/equ/', formData(payload))
+      .then(res => {
+        commit('set_toast',{value: true, type: 'success', 'is-show-mask': true, text: '提交成功',});
+        setTimeout(() => {router.push({name: 'canLend'})}, 2000)
+      })
+      .catch(err => console.log(err))
+    },
+
+    systemFeedback({commit, state}, payload) {
+      commit('set_loading', {show: true, text: "正在提交"});
+      let date = new Date();
+      payload.commit_id = state.user_id;
+      payload.commit_time = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}--${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+      return axios.post('/feedback', payload)
+      .then(res => {
+        commit('set_loading', {show: false});
+        commit('set_toast',{value: true, type: 'success', 'is-show-mask': true, text: '提交成功',});
+        setTimeout(() => {router.push({name: 'mine'})}, 2000)
+      })
+      .catch(err => console.log(err))
+    },
+
+    freshCode({commit, state}, payload) {
+      commit('set_loading', {show: true, text: "正在刷新"});      
+      return axios.delete(`/api/operation/${payload.br_id}/qrcode`)
+      .then(res => {
+        commit('set_loading', {show: false});
+        commit('set_toast',{value: true, type: 'success', 'is-show-mask': true, text: '已成功刷新',});
+      })
+      .catch(err => console.log(err))
     },
 }

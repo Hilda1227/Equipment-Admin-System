@@ -6,7 +6,7 @@
     >
       <span class="club-name">{{ item.soc_name }}</span>
       <span class="dev">{{ item.equ_name }}</span>
-      <x-button mini plain type="primary">可借</x-button>
+      <x-button mini plain type="primary">查阅</x-button>
     </div>
   </div>
 </template>

@@ -9,8 +9,9 @@
     <router-view></router-view>
   </div>
 </template>
+
 <script>
-import { Tab, TabItem } from 'vux'
+import { Tab, TabItem } from 'vux';
 export default {
   components: {
     Tab,
@@ -18,7 +19,4 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-
-</style>
 

@@ -35,6 +35,10 @@ export default {
   set_waitComfirm (state, payload) {
     state.waitComfirm = payload;
   },
+  set_devDetail (state, payload) {
+    state.devDetail = payload;
+    state.devDetail.equ_msg.status = payload.status === 0 ? true : false
+  },
 
   // 借入设备
   set_borrowing (state, payload) {
@@ -45,8 +49,9 @@ export default {
   },
   set_hasTimeoutReturn (state, payload) {
     state.hasTimeoutReturn = payload;
+    console.log(payload)
   },
-  set_hasTimeoutReturn (state, payload) {
+  set_waitComfirmReturn (state, payload) {
     state.waitComfirmReturn = payload;
   },
 
@@ -60,7 +65,7 @@ export default {
   set_feedBack (state, payload) {
     state.feedBack = payload;
   },
-  set_lendApplyDetail (state, payload) {
-    state.lendApplyDetail = payload;
+  set_operationDetail (state, payload) {
+    state.operationDetail = payload;
   }
 }

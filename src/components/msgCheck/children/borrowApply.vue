@@ -2,7 +2,7 @@
   <div class=" wrap borrow-apply">
     <div 
        v-for = 'item in borrowApplay' 
-       @click="$router.push({name: 'feedback', params: {type, br_id: item.br_id}})" 
+       @click="$router.push({name: 'feedback', params: {type: 'view', br_id: item.br_id}})" 
        class="borrow-apply-item"
     >
       <span class="club-name">{{ item.soc_name }}</span>
@@ -15,11 +15,6 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 export default {
- data() {
-   return {
-     type: 'view'
-   }
- },
  computed: {
    ...mapState(['borrowApplay'])
  },

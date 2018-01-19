@@ -2,29 +2,27 @@
   <div class="dev-list-panel">
       <div class="dev-item-box" v-for="item in list" @click="goto(item.url)">
          <div class="dev-item">
-           <img class="dev-item-img" :src="item.src"/>
+           <div class="dev-item-img" :style = "{backgroundImage: 'url(' + item.pic_url + ')'}"></div>
            <ul class="dev-item-info">
-              <li class="dev-item-info-title"><span class="dev-item-info-left">{{item.devName}}</span><span class="dev-item-info-right">{{item.state}}</span></li>
-              <li><span class="dev-item-info-left">社团名称</span><span class="dev-item-info-right">{{item.clubName}}</span></li>
-              <li><span class="dev-item-info-left">借用日期</span><span class="dev-item-info-right">{{item.borrowDate}}</span></li>
-              <li><span class="dev-item-info-left">归还日期</span><span class="dev-item-info-right">{{item.returnDate}}</span></li>
+              <li class="dev-item-info-title"><span class="dev-item-info-left">{{item.equ_name}}</span><span class="dev-item-info-right">{{item.state}}</span></li>
+              <li><span class="dev-item-info-left">社团名称</span><span class="dev-item-info-right">{{item.soc_name}}</span></li>
+              <li><span class="dev-item-info-left">借用日期</span><span class="dev-item-info-right">{{item.start_datetime}}</span></li>
+              <li><span class="dev-item-info-left">归还日期</span><span class="dev-item-info-right">{{item.end_date}}</span></li>
            </ul>
-           <img @click.stop="fresh()" v-if="$route.name === 'borrowing'" id="fresh" src="../../assets/img/refresh.png">
+           <img @click.stop="freshCode({br_id: item.br_id})" v-if="$route.name === 'borrowing'" id="fresh" src="../../assets/img/refresh.png">
          </div> 
       </div>
   </div>
 </template>
 <script>
-
+import { mapActions } from 'vuex';
 export default {
   props: ['list'],
   methods: {
+    ...mapActions(['freshCode']),
     goto(url) {
       this.$router.push(url);
     },
-    fresh() {
-      console.log("刷新二维码")
-    }
   }
 }
 </script>
@@ -65,6 +63,9 @@ export default {
       justify-content: flex-start;
       .dev-item-img{
         width: 70px;
+        height: 70px;
+        background-size: cover;
+        background-position: center;
         margin-right: 15px;
       }
       .dev-item-info{

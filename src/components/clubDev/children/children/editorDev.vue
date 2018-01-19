@@ -1,26 +1,38 @@
 <template>
-  <div class=" wrap editor-dev">
+  <div class = " wrap editor-dev">
     <group>
-      <x-input title="社团设备" placeholder="完整名称" required v-model="equ_name"></x-input>
-      <x-input title="设备型号" placeholder="选填" v-model="model"></x-input>
-      <x-input title="设备数量" placeholder="可借用设备数量" type="number" required v-model="equ_count"></x-input>
-      <x-input title="负责人" is-type="china-name" placeholder="负责人姓名" required v-model="resp_person"></x-input>
-      <x-input title="手机" is-type="china-mobile" placeholder="输入手机" required v-model="phone_num"></x-input>
-      <x-input title="QQ" placeholder="输入QQ" required v-model="qq_num"></x-input>     
-      <x-input title="存放地点" placeholder="" required v-model="place"></x-input>
-      <x-textarea title="注意事项" :height="30" :max="100" v-model="careful"></x-textarea>
-      <div class="dev-img">
-          <label for="upload">设备图片</label >
-          <div id="choose-img"><img src="../../../../assets/img/add_dev.png"/><input @change="chooseImg()" id="upload" type="file"></input></div>
+      <x-input title = "社团设备" placeholder = "完整名称" :required = "true" v-model = "equ.name"></x-input>
+
+      <x-input title = "设备型号" placeholder = "选填" v-model = "equ.model"></x-input>
+
+      <x-input title = "设备数量" placeholder = "可借用设备数量" is-type = "number" :required = "true" v-model = "equ.count"></x-input>
+
+      <x-input title = "负责人" is-type = "china-name" placeholder = "负责人姓名" :required = "true" v-model = "equ.resp_person"></x-input>
+
+      <x-input title = "手机" is-type="china-mobile" placeholder = "输入手机" :required = "true" v-model = "equ.phone_num"></x-input>
+
+       <x-input title = "QQ" placeholder = "输入QQ" :required = "true" v-model = "equ.qq_num"></x-input>
+
+      <x-input title = "存放地点" placeholder = "存放地点" :required = "true" v-model = "equ.place"></x-input>
+
+      <x-textarea title = "注意事项" :height="30" :max="100" v-model = "equ.notice"></x-textarea>
+
+      <div class = "dev-img">
+          <label for = "upload">设备图片</label >
+          <div class="choose-img" 
+            :style = "{backgroundImage: 'url(' + equ.pic_url || require('../../../../assets/img/add_dev.png') + ')'}">
+            <input @change = "chooseImg()" class="upload" type = "file"></input>
+          </div>
       </div>
     </group>
-    <x-switch title="设备不可借" v-model="cant_lend"></x-switch>
-    <x-button @click.native="submit()" class="lend-btn" type="primary">保存</x-button>
+
+    <x-switch title = "设备不可借" v-model = "equ.status"></x-switch>
+    <x-button @click.native = "submit()" class = "lend-btn" type = "primary">保存</x-button>
   </div>
 </template>
 <script>
-import { XButton, Group, XInput, XTextarea, XSwitch} from 'vux'
-import { mapActions, mapState } from 'vuex'
+import { XButton, Group, XInput, XTextarea, XSwitch} from 'vux';
+import { mapActions, mapState } from 'vuex';
 export default {
   components: {
     XButton,
@@ -28,57 +40,63 @@ export default {
     Group,
     XTextarea,
     XSwitch,
-  
   },
-  data() {
+  data() {    
     return {
       type: this.$route.params.type,
-      dev_id: this.$route.params.dev_id, 
-      equ_name: '',
-      model: '',
-      equ_count: void 0,
-      resp_person: '',    
-      phone_num: null,
-      qq_num: null,
-      place: '',
-      careful: '',
-      pic_url: '',
-      cant_lend: false
+      equ_id: this.$route.params.dev_id, 
+      equ: {
+        name: '',
+        model: '',
+        count: '',
+        resp_person: '',
+        phone_num: '',
+        qq_num: '',
+        place: '',
+        pic_url: '',
+        status: false, 
+        notice: ''       
+      }
     }
   },
   computed: {
     ...mapState(['devDetail'])
   },
   created(){
-    if(this.type = 'modify'){
-      this.getDevDetail(this.dev_id)
+    if(this.type == 'modify'){
+      this.getDevDetail(this.equ_id)
       .then(() => {
-        console.log(this.devDetail)
+        this.equ = this.devDetail.equ_msg;
       })
     }
   },
   methods: {
-    ...mapActions(['addClubDev', 'getDevDetail']),
+    ...mapActions(['addClubDev', 'getDevDetail', 'upload', 'modifyInfo', 'addClubDev']),
     // 选择图片预览
     chooseImg() {
-      let upload  = document.querySelector('#upload'),
-          preview = document.querySelector('img'),
+      let upload  = document.querySelector('.upload'),
           file    = upload.files[0],          
           reader  = new FileReader();
-
       this.pic_url = upload.value;
-      reader.addEventListener("load", function () {
-        preview.src = reader.result;
-      }, false);
       
+      reader.addEventListener("load", () => {
+        this.upload({file}).then(url => {this.equ.pic_url = url.pic_url;})
+      }, false);      
       if (file) reader.readAsDataURL(file);
     },
     submit() {
-      // const info = {equ_name: this.equ_name, model: this.model, equ_count: this.equ_count,
-      //               resp_person: this.resp_person, phone_num: this.phone_num, qq_num: this.qq_num,
-      //               place: this.place, careful: this.careful, pic_url: this.pic_url
-      //            };  
-      // this.addClubDev(info);
+      if(this.type == 'modify'){
+        this.modifyInfo({
+          equ_id: this.equ_id,
+          equ: {
+            ...this.equ, 
+            status: this.equ.status === false ? 1 : 0,
+          }
+        })
+      }
+      if(this.type == 'add'){
+        this.addClubDev(this.equ)
+      }
     }
   }
 }
@@ -99,18 +117,14 @@ export default {
         transform: scaleY(0.5);
         left: 15px;
     }
-    #choose-img{
+    .choose-img{
       display: inline-block;
       height :4rem;
       width: 4rem;
-      position: relative; 
-      img{
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        position: absolute;
-      }     
-        #upload{
+      position: relative;  
+      background-size: cover;
+      background-position: center;  
+        .upload{
            height: 100%;
            width: 100%;
            opacity: 0;

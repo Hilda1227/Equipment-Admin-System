@@ -1,19 +1,20 @@
 <template>
   <div class="search">
     <search
-    @on-result-click="resultClick"
-    @on-change="getResult(value)"
-    :results="results"
-    v-model="value"
-    position="absolute"
-    auto-scroll-to-top top="46px"
-    @on-focus="onFocus"
-    @on-cancel="onCancel"
-    ref="search"></search>
-    <div class="clear" 
-      ref='clear'
-      v-show="results.length"
-      @click='clear'>清除搜索历史</div>
+    @on-result-click = "resultClick"
+    @on-change = "getResult(value)"
+    @on-submit = "resultClick"
+    :results = "results"
+    v-model = "value"
+    position = "absolute"
+    auto-scroll-to-top top = "46px"
+    @on-focus = "onFocus"
+    @on-cancel = "onCancel"
+    ref = "search"></search>
+    <div class = "clear" 
+      ref = 'clear'
+      v-show = "results.length"
+      @click = 'clear'>清除搜索历史</div>
   </div> 
 </template>
 <script>
@@ -37,18 +38,22 @@ export default {
     },
     resultClick (item) {
       let record = JSON.parse(localStorage.getItem('searchKeys')),
-          value = item.key;
-      record.push(item.key);
-      localStorage.setItem('searchKeys', JSON.stringify(record));
-      this.$router.replace({ name: 'searchResult', params:{key: value} })
+          val = item && item.key || this.value;
+          console.log(val)
+      if(!record.find(i => i === val)){
+        record.push(val);
+        localStorage.setItem('searchKeys', JSON.stringify(record));
+      }  
+      this.$router.replace({ name: 'searchResult', params:{key: val} })
     },
     getResult (val) {
       let rs = [], reg = new RegExp(val);
-      if( localStorage.getItem('searchKeys') === null ) localStorage.setItem('searchKeys', '[]');
+      if( localStorage.getItem('searchKeys') === null ){
+        localStorage.setItem('searchKeys', '[]');
+      }
       JSON.parse( localStorage.getItem('searchKeys') ).map((item) => {
         if( reg.test(item) ) rs.push(item);
       })
-      if( rs.indexOf(val) === -1 ) rs.unshift(val);
       rs = rs.map((item) => {
         return{ title: item, key: item };
       })
@@ -69,6 +74,7 @@ export default {
 
 }
 </script>
+
 <style lang="scss" scope>
 .vux-search-box, .vux-search-fixed{
   position: relative !important;
@@ -77,7 +83,6 @@ export default {
     color: #666;
   }
 }
-
 .clear{
   position: relative;
   top: 0px;
@@ -100,5 +105,4 @@ export default {
     left: 15px;
   }
 }
-
 </style>
