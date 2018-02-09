@@ -2,7 +2,7 @@ import Vue       from 'vue';
 export default {
   loading: {
     show: false,
-    text: '加载中'
+    text: ''
   },
   alert: {
     value: false,
@@ -13,7 +13,6 @@ export default {
     value: false,
     type: 'success',
     'is-show-mask': false,
-    text: '',
   },
   user_id: void 0,
   indexList: [],

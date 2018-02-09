@@ -9,7 +9,7 @@
 
       <x-input title = "负责人" is-type = "china-name" placeholder = "负责人姓名" :required = "true" v-model = "equ.resp_person"></x-input>
 
-      <x-input title = "手机" is-type="china-mobile" placeholder = "输入手机" :required = "true" v-model = "equ.phone_num"></x-input>
+      <x-input title = "手机" type="tel" placeholder = "输入手机" :required = "true" v-model = "equ.phone_num"></x-input>
 
        <x-input title = "QQ" placeholder = "输入QQ" :required = "true" v-model = "equ.qq_num"></x-input>
 
@@ -20,14 +20,15 @@
       <div class = "dev-img">
           <label for = "upload">设备图片</label >
           <div class="choose-img" 
-            :style = "{backgroundImage: 'url(' + equ.pic_url || require('../../../../assets/img/add_dev.png') + ')'}">
+            :style = "{backgroundImage: `url(${equ.pic_url ? equ.pic_url : require('../../../../assets/img/add_dev.png')})`}">
             <input @change = "chooseImg()" class="upload" type = "file"></input>
           </div>
       </div>
+      <x-switch title = "设备不可借" v-model = "equ.status"></x-switch>
+    <x-button @click.native = "submit()" class = "lend-btn" type = "primary">保存</x-button>
     </group>
 
-    <x-switch title = "设备不可借" v-model = "equ.status"></x-switch>
-    <x-button @click.native = "submit()" class = "lend-btn" type = "primary">保存</x-button>
+    
   </div>
 </template>
 <script>
@@ -124,13 +125,13 @@ export default {
       position: relative;  
       background-size: cover;
       background-position: center;  
-        .upload{
-           height: 100%;
-           width: 100%;
-           opacity: 0;
-           z-index: 2;
-           position: absolute;
-        }
+      .upload{
+          height: 100%;
+          width: 100%;
+          opacity: 0;
+          z-index: 2;
+          position: absolute;
+      }
     }
     label{
         width: 5rem;

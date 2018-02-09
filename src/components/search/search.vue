@@ -1,20 +1,20 @@
 <template>
-  <div class="search">
+  <div class = "search">
     <search
-    @on-result-click = "resultClick"
-    @on-change = "getResult(value)"
-    @on-submit = "resultClick"
-    :results = "results"
-    v-model = "value"
-    position = "absolute"
-    auto-scroll-to-top top = "46px"
-    @on-focus = "onFocus"
-    @on-cancel = "onCancel"
-    ref = "search"></search>
+      @on-result-click = "resultClick"
+      @on-change = "getResult(value)"
+      @on-submit = "resultClick"
+      :results = "results"
+      v-model = "value"
+      position = "absolute"
+      auto-scroll-to-top top = "46px"
+      ref = "search">
+    </search>
     <div class = "clear" 
       ref = 'clear'
       v-show = "results.length"
-      @click = 'clear'>清除搜索历史</div>
+      @click = 'clear'>清除搜索历史
+    </div>
   </div> 
 </template>
 <script>
@@ -36,6 +36,7 @@ export default {
     setFocus () {
       this.$refs.search.setFocus()
     },
+
     resultClick (item) {
       let record = JSON.parse(localStorage.getItem('searchKeys')),
           val = item && item.key || this.value;
@@ -46,6 +47,7 @@ export default {
       }  
       this.$router.replace({ name: 'searchResult', params:{key: val} })
     },
+
     getResult (val) {
       let rs = [], reg = new RegExp(val);
       if( localStorage.getItem('searchKeys') === null ){
@@ -59,13 +61,7 @@ export default {
       })
       this.results = rs;
     },
-   
-    onFocus () {
-      console.log('on focus')
-    },
-    onCancel () {
-      console.log('on cancel')
-    },
+    
     clear() {
       localStorage.setItem('searchKeys', '[]');
       this.results = [];

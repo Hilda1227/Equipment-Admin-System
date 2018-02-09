@@ -32,13 +32,20 @@
    flex-direction: column;
 }
 .nav-1{
-  position: relative;
-  height: 40px;
-  display: flex;
-  justify-content: space-around;
-  background-color: #00be2f;
-  color:#86d893;
-  flex-shrink: 0;
+  // position: relative;
+  // height: 40px;
+  // display: flex;
+  // justify-content: space-around;
+  // background-color: #49afa1;
+  // color:#a7d4cd;
+  // flex-shrink: 0;
+    position: relative;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    background-color: #00be2f;
+    color:#86d893;
+    flex-shrink: 0;
   li{
     line-height: 40px;
   }

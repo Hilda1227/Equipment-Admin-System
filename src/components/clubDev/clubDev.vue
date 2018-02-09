@@ -6,7 +6,9 @@
       <router-link tag="li" :to="{name: 'hasTimeout'}">已逾期</router-link>
       <router-link tag="li" :to="{name: 'waitComfirm'}">待确认</router-link>
     </ul>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 <script>

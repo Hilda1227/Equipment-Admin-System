@@ -4,7 +4,9 @@
       <router-link tag="li" :to="{name: 'lendApply'}">借出申请</router-link>
       <router-link tag="li" :to="{name: 'borrowApply'}">借用申请</router-link>
     </ul>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

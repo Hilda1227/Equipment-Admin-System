@@ -37,6 +37,13 @@ export default {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    span{
+      display: inline-block;
+      text-overflow: ellipsis; 
+			white-space: nowrap; 
+			overflow: hidden;
+      text-align: center;
+    }
     &::after{
       content: " ";
       position: absolute;
@@ -52,15 +59,17 @@ export default {
     }
     .club-name{
       color: #000;
+      width: 30%;
     }
     .dev{
       color:#a9a9a9;
-      // margin: auto 2.6rem;
+      text-align: left;
+      width: 30%;
     }
     .result{
       color:#e60012;
+      width: 15%;
       position: relative;
-      // margin-right: 2.6rem;
      
     }
     .arrow{
@@ -71,6 +80,7 @@ export default {
         border-color: #c8c8cd;
         border-style: solid;
         transform: rotate(45deg);
+        margin-right: 1rem;
     }
   }
 </style>

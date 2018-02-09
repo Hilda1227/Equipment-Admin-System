@@ -1,15 +1,30 @@
 <template>
   <div class="dev-list-panel">
       <div class="dev-item-box" v-for="item in list" @click="goto(item.url)">
-         <div class="dev-item">
-           <div class="dev-item-img" :style = "{backgroundImage: 'url(' + item.pic_url + ')'}"></div>
-           <ul class="dev-item-info">
-              <li class="dev-item-info-title"><span class="dev-item-info-left">{{item.equ_name}}</span><span class="dev-item-info-right">{{item.state}}</span></li>
-              <li><span class="dev-item-info-left">社团名称</span><span class="dev-item-info-right">{{item.soc_name}}</span></li>
-              <li><span class="dev-item-info-left">借用日期</span><span class="dev-item-info-right">{{item.start_datetime}}</span></li>
-              <li><span class="dev-item-info-left">归还日期</span><span class="dev-item-info-right">{{item.end_date}}</span></li>
-           </ul>
-           <img @click.stop="freshCode({br_id: item.br_id})" v-if="$route.name === 'borrowing'" id="fresh" src="../../assets/img/refresh.png">
+        <div class="dev-item">
+            <div class="dev-item-img" :style = "{backgroundImage: 'url(' + item.pic_url + ')'}"></div>
+
+            <ul class="dev-item-info">
+              <li class="dev-item-info-title">
+                <span class="dev-item-info-left">{{item.equ_name}}</span>
+                <span class="dev-item-info-right">{{item.state}}</span>
+                </li>
+              <li>
+                <span class="dev-item-info-left">社团名称</span>
+                <span class="dev-item-info-right">{{item.soc_name}}</span>
+                </li>
+              <li>
+                <span class="dev-item-info-left">借用日期</span>
+                <span class="dev-item-info-right">{{item.start_datetime}}</span>
+                </li>
+              <li>
+                <span class="dev-item-info-left">归还日期</span>
+                <span class="dev-item-info-right">{{item.end_date}}</span>
+                </li>
+            </ul>
+            <img id="fresh" src="../../assets/img/refresh.png"
+              @click.stop="freshCode({br_id: item.br_id})" 
+              v-if="$route.name === 'borrowing'"/>
          </div> 
       </div>
   </div>
@@ -64,6 +79,7 @@ export default {
       .dev-item-img{
         width: 70px;
         height: 70px;
+        flex-shrink: 0;
         background-size: cover;
         background-position: center;
         margin-right: 15px;
@@ -79,7 +95,7 @@ export default {
           color: #000;
           font-size: 1rem;
           .dev-item-info-left{
-            margin-right: 3rem;
+            margin-right: 1rem;
           }
         }
         .dev-item-info-left{

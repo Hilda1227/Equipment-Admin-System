@@ -1,7 +1,9 @@
 <template>
   <div class="index-wrap">
 
-    <keep-alive><router-view></router-view></keep-alive>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
 
     <div class="foot-nav">
        <router-link @click.native="isHome=true" to="/index/list" tag="div" class="nav-item">

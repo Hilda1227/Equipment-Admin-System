@@ -10,7 +10,7 @@ export default {
     localStorage.setItem('user_id', payload);
   },
   set_indexList (state, payload) {
-    state.indexList = payload;
+    state.indexList = state.indexList.concat(payload);
   },
   set_searchList (state, payload) {
     state.searchList = payload;
@@ -49,7 +49,6 @@ export default {
   },
   set_hasTimeoutReturn (state, payload) {
     state.hasTimeoutReturn = payload;
-    console.log(payload)
   },
   set_waitComfirmReturn (state, payload) {
     state.waitComfirmReturn = payload;

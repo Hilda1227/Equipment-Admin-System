@@ -29,7 +29,11 @@
     methods: {
       ...mapActions(["register"]),
       submit() {
-        const info = {password: this.password, inv_code: this.inv_code, name: this.name}
+        let info = {
+          password: this.password, 
+          inv_code: this.inv_code, 
+          name: this.name
+        }
         this.register(info)
       }
     }

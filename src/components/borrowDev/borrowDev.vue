@@ -6,7 +6,9 @@
       <router-link tag="li" :to="{name: 'checking'}">审核中</router-link>
       <router-link tag="li" :to="{name: 'waitComfirmReturn'}">待确认</router-link>
     </ul>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

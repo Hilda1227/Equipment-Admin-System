@@ -1,18 +1,18 @@
 <template>
-  <div class="dev-list-panel-2">
-      <div class="dev-item-box" v-for="item in list" @click="goto(item.url)">
-         <div class="dev-item">
-           <div class="preview" :style = "{backgroundImage: 'url(' + item.src + ')'}"></div>
-           <div class="info">
-               <span class="equ_name">{{item.title}}</span>
-               <span>库存<span>{{item.count}}</span></span>
-           </div>
-         </div> 
-      </div>
+  <div class = "dev-list-panel-2">
+    <div class = "dev-item-box" v-for = "item in list" @click = "goto(item.url)">
+      <div class = "dev-item">
+        <div class = "preview" :style = "{backgroundImage: 'url(' + item.src + ')'}"></div>
+        <div class = "info">
+            <span class = "equ_name">{{ item.title }}</span>
+            <span>库存<span>{{ item.count }}</span></span>
+        </div>
+      </div> 
+    </div>
   </div>
 </template>
-<script>
 
+<script>
 export default {
   props: ['list'],
   methods: {
@@ -25,6 +25,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 .dev-list-panel-2{
   width: 100%;
