@@ -1,7 +1,7 @@
-import Vue       from 'vue' 
-import router from '../router'
-import axios from 'axios'
-import {serialize, formData} from '../util.js'
+import Vue       from 'vue';
+import router from '../router';
+import axios from 'axios';
+import {serialize, formData} from '../util.js';
 export default { 
   register ({ commit, state }, payload) {
     commit('set_loading', { show: true });
@@ -10,7 +10,7 @@ export default {
       commit('set_loading', { show: false });
       const result = res.data;
       if(result.user_id && !result.inv_code){
-        commit('set_login', res.data.user_id); router.push('/index');
+        commit('set_login', res.data); router.push('/index');
       }
       else  commit('set_alert', {value: true, title: '', content: '注册码验证失败'});
     })
@@ -26,7 +26,7 @@ export default {
     .then(res => {
       commit('set_loading', { show: false });
       if(res.data.user_id){
-        commit('set_login', res.data.user_id); 
+        commit('set_login', res.data); 
         router.push({path:'/index'})
       } else {
         commit('set_alert', {value: true, title: '认证失败', content: '您输入的账号或密码有误，请确认后重新输入'})
@@ -42,7 +42,7 @@ export default {
     let query = serialize(payload);
     return axios.get('/api/list'+ query)
     .then((res) => {
-      commit('set_indexList', res.data.content);
+      commit('set_indexList', {isInit: payload.isInit, list: res.data.content});
       return res.data.has_next;
     })
     .catch((err) => {
@@ -101,7 +101,7 @@ export default {
     commit('set_loading', { show: true });
     let query = serialize(payload),
         types = ['canLend', 'hasLend', 'hasTimeout', 'waitComfirm',];
-    return axios.get(`/api/user/${state.user_id}/manage_equipments` + query)
+    return axios.get(`/api/user/${state.user.user_id}/manage_equipments` + query)
       .then((res) => {
         let key = payload.key ;
         commit(`set_${types[key-1]}`, res.data.message_list);
@@ -118,7 +118,7 @@ export default {
     commit('set_loading', { show: true });
     let query = serialize(payload),
         types = ['borrowing', 'hasTimeoutReturn', 'checking', 'hasTimeoutReturn'];
-    return axios.get(`/api/user/${state.user_id}/borrowed_equipments` + query)
+    return axios.get(`/api/user/${state.user.user_id}/borrowed_equipments` + query)
     .then((res) => {
       commit('set_loading', { show: false });
       commit(`set_${types[payload.key-1]}`, res.data.message_list);
@@ -147,7 +147,7 @@ export default {
     commit('set_loading', { show: true });
     let query = serialize(payload),
         types = ['lendApply','borrowApply'];
-    return axios.get(`/api/user/${state.user_id}/message` + query)
+    return axios.get(`/api/user/${state.user.user_id}/message` + query)
     .then((res) => {
       commit('set_loading', { show: false });
       commit(`set_${types[payload.key-1]}`, res.data.message_list);      
@@ -247,7 +247,7 @@ export default {
   systemFeedback({commit, state}, payload) {
     commit('set_loading', {show: true, text: "正在提交"});
     let date = new Date();
-    payload.commit_id = Number(state.user_id);
+    payload.commit_id = Number(state.user.user_id);
     payload.commit_time = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}--${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
     return axios.post('/feedback', payload)
     .then(res => {

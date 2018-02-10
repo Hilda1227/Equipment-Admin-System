@@ -12,8 +12,9 @@
 </template>
 
 <script>
-import {Group, XButton, XTextarea, XInput} from 'vux'
-import { mapActions, mapState } from 'vuex'
+import {Group, XButton, XTextarea, XInput} from 'vux';
+import { mapActions, mapState } from 'vuex';
+import { debounce } from '../../util.js';
 export default {
   components: {
     XButton,   
@@ -27,14 +28,16 @@ export default {
       tel: ''
     }
   },
-  methods: {
-     ...mapActions(['systemFeedback']),
-    submit() {
+  mounted () {
+    this.submit = debounce(() => {
       this.systemFeedback({
         body: this.val,
         tel: this.tel
       })
-    }
+    }, 2000, true) 
+  },
+  methods: {
+     ...mapActions(['systemFeedback']),
   }
 }
 </script>

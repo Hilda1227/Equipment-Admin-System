@@ -5,7 +5,7 @@
     <div ref = "equs" class = "list_wrap">
       <div ref = "slide" class = "wrap">
         <div v-for = "item in indexList" class = "weui-panel weui-panel_access">
-          <div @click="toDetail(item.id)" class = "weui-panel__bd">
+          <div  class = "weui-panel__bd">
             <a href="javascript:void(0);" class = "weui-media-box weui-media-box_appmsg">
 
               <div class = "preview" :style = "{backgroundImage: 'url(' + item.pic_url + ')'}"></div>
@@ -14,12 +14,15 @@
                   <p class = "weui-media-box__desc"> {{ item.soc_name }}</p>
                   <p class = "weui-media-box__desc"><span class = "count">{{ item.count }}</span>个剩余</p>
               </div>
-              <x-button  mini plain type="primary">{{ item.count ? '' : '不' }}可借</x-button>
+              <x-button @click.native = "toDetail(item.id)"  mini plain type="primary">{{ item.count ? '' : '不' }}可借</x-button>
             </a>
           </div>     
         </div>  
         <div class="load_more">
-          <div v-if = 'is_loading' class = "loading"><span class="icon"></span><span>正在加载...</span></div>
+          <div v-if = 'is_loading' class = "loading">
+            <span class="icon"></span>
+            <span>正在加载...</span>
+          </div>
           <span v-if = '!has_next'>--暂无更多--</span>
         </div>
       </div>
@@ -48,15 +51,15 @@
     created() {
       this.getIndexList({
         page: this.page, 
-        number: this.number
+        number: this.number,
+        isInit: true
       })
       .then(has_next => {
         if(!has_next) this.has_next = has_next;
         this.is_loading = false; this.page++;
       });
     },
-    mounted () {
-      
+    mounted () {     
       this.$refs.equs.addEventListener('scroll', this.loadMore, false);
     },
     beforeDestroy () {
@@ -84,7 +87,8 @@
           this.is_loading = true;
           this.getIndexList({
             page: this.page, 
-            number: this.number
+            number: this.number,
+            isInit: false
           })
           .then(has_next => {
             if(!has_next) {

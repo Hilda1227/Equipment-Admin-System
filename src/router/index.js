@@ -1,39 +1,39 @@
 import Vue    from 'vue';
 import Router from 'vue-router';
 
-import login    from '../components/login/login';
-import register from '../components/login/register';
+const  login     = () => import('../components/login/login');
+const  register  = () => import('../components/login/register');
 
-import index from '../components/index/index';
-import list  from '../components/index/children/list.vue';
-import mine  from '../components/index/children/mine.vue';
-import search  from '../components/search/search.vue';
-import searchResult  from '../components/search/searchResult.vue';
-import devDetail from '../components/index/children/children/devDetail.vue';
-import fillBorrowApply from '../components/index/children/children/fillBorrowApply.vue';
+const  index  = () => import('../components/index/index');
+const  list   = () => import('../components/index/children/list.vue');
+const  mine   = () => import('../components/index/children/mine.vue');
+const  search   = () => import('../components/search/search.vue');
+const  searchResult   = () => import('../components/search/searchResult.vue');
+const  devDetail  = () => import('../components/index/children/children/devDetail.vue');
+const  fillBorrowApply  = () => import('../components/index/children/children/fillBorrowApply.vue');
 
-import clubDev  from '../components/clubDev/clubDev.vue';
-import canLend  from '../components/clubDev/children/canLend.vue';
-import hasLend  from '../components/clubDev/children/hasLend.vue';
-import hasTimeout  from '../components/clubDev/children/hasTimeout.vue';
-import waitComfirm  from '../components/clubDev/children/waitComfirm.vue';
-import editorDev from '../components/clubDev/children/children/editorDev.vue';
-import clubDevDetail from '../components/clubDev/children/children/clubDevDetail.vue';
+const  clubDev   = () => import('../components/clubDev/clubDev.vue');
+const  canLend   = () => import('../components/clubDev/children/canLend.vue');
+const  hasLend   = () => import('../components/clubDev/children/hasLend.vue');
+const  hasTimeout   = () => import('../components/clubDev/children/hasTimeout.vue');
+const  waitComfirm   = () => import('../components/clubDev/children/waitComfirm.vue');
+const  editorDev  = () => import('../components/clubDev/children/children/editorDev.vue');
+const  clubDevDetail  = () => import('../components/clubDev/children/children/clubDevDetail.vue');
 
-import borrowDev  from '../components/borrowDev/borrowDev.vue';
-import borrowing  from '../components/borrowDev/children/borrowing.vue';
-import checking  from '../components/borrowDev/children/checking.vue';
-import hasTimeoutReturn  from '../components/borrowDev/children/hasTimeoutReturn.vue';
-import waitComfirmReturn  from '../components/borrowDev/children/waitComfirmReturn.vue';
-import borrowDevDetail from '../components/borrowDev/children/children/borrowDevDetail.vue';
+const  borrowDev   = () => import('../components/borrowDev/borrowDev.vue');
+const  borrowing   = () => import('../components/borrowDev/children/borrowing.vue');
+const  checking   = () => import('../components/borrowDev/children/checking.vue');
+const  hasTimeoutReturn   = () => import('../components/borrowDev/children/hasTimeoutReturn.vue');
+const  waitComfirmReturn   = () => import('../components/borrowDev/children/waitComfirmReturn.vue');
+const  borrowDevDetail  = () => import('../components/borrowDev/children/children/borrowDevDetail.vue');
 
-import msgCheck  from '../components/msgCheck/msgCheck.vue';
-import borrowApply  from '../components/msgCheck/children/borrowApply.vue';
-import lendApply  from '../components/msgCheck/children/lendApply.vue';
-import lendApplyDetail from '../components/msgCheck/children/children/lendApplyDetail.vue';
-import feedback from '../components/msgCheck/children/children/feedback.vue';
+const  msgCheck   = () => import('../components/msgCheck/msgCheck.vue');
+const  borrowApply   = () => import('../components/msgCheck/children/borrowApply.vue');
+const  lendApply   = () => import('../components/msgCheck/children/lendApply.vue');
+const  lendApplyDetail  = () => import('../components/msgCheck/children/children/lendApplyDetail.vue');
+const  feedback  = () => import('../components/msgCheck/children/children/feedback.vue');
 
-import systemFeedback  from '../components/common/systemFeedback.vue';
+const  systemFeedback   = () => import('../components/common/systemFeedback.vue');
 
 Vue.use(Router);
 export default new Router({

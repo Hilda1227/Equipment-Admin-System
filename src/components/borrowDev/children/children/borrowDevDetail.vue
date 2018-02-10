@@ -23,7 +23,7 @@
     </group>
 
     <x-button class = "btn" type="primary"
-      @click.native = "() => priorReturn({ br_id })" 
+      @click.native = "click " 
       :disabled = "type === 'checking' || type === 'waitComfirmReturn'" >{{ btn_text }}
     </x-button>
   </div>
@@ -32,6 +32,8 @@
 <script>
 import { XButton, Group, XInput, XTextarea} from 'vux';
 import { mapActions, mapState } from 'vuex';
+import { debounce } from '../../../../util.js';
+
 export default {
   components: {
     XButton,
@@ -43,8 +45,12 @@ export default {
     return {
       type: this.$route.params.type,
       br_id: this.$route.params.br_id,
-      submit: () => {}
     }
+  },
+  mounted () {
+    this.click = debounce(function () {
+      this.priorReturn({ br_id: this.br_id })
+    }, 2500, true)
   },
   computed: {
     ...mapState(['operationDetail'])

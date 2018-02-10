@@ -25,7 +25,7 @@
         </li>
       <li class = "careful">
         <span class = "title">注意事项</span>
-        <span class = "value"></span>
+        <span class = "value">{{ devDetail.equ_msg.notice }}</span>
         </li>
       <li>
         <span class = "title">负责人员</span>

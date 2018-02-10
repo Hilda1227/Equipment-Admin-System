@@ -18,13 +18,13 @@ router.beforeEach(function (to, from, next) {
   next()
 })
 
-if(localStorage.getItem('user_id')){
-  store.commit('set_login', localStorage.getItem('user_id'))
-}
+// if(localStorage.getItem('user_id')){
+//   store.commit('set_login', {user_id: localStorage.getItem('user_id')})
+// }
 
 // 未登录拦截
 router.beforeEach((to, from, next) => {
-  if(to.path !=='/login' && store.state.user_id === void 0) {
+  if(to.path !=='/login' && store.state.user.user_id === void 0) {
     next({path: '/login'});
   }
   else next();

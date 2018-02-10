@@ -25,7 +25,7 @@
           </div>
       </div>
       <x-switch title = "设备不可借" v-model = "equ.status"></x-switch>
-    <x-button @click.native = "submit()" class = "lend-btn" type = "primary">保存</x-button>
+    <x-button @click.native = "click()" class = "lend-btn" type = "primary">保存</x-button>
     </group>
 
     
@@ -34,6 +34,7 @@
 <script>
 import { XButton, Group, XInput, XTextarea, XSwitch} from 'vux';
 import { mapActions, mapState } from 'vuex';
+import { debounce } from '../../../../util.js';
 export default {
   components: {
     XButton,
@@ -63,6 +64,22 @@ export default {
   computed: {
     ...mapState(['devDetail'])
   },
+  mounted () {
+    this.click = debounce(() => {
+      if(this.type == 'modify'){
+        this.modifyInfo({
+          equ_id: this.equ_id,
+          equ: {
+            ...this.equ, 
+            status: this.equ.status === false ? 1 : 0,
+          }
+        })
+      }
+      if(this.type == 'add'){
+        this.addClubDev(this.equ)
+      }
+    }, 2500, true)
+  },
   created(){
     if(this.type == 'modify'){
       this.getDevDetail(this.equ_id)
@@ -84,20 +101,6 @@ export default {
         this.upload({file}).then(url => {this.equ.pic_url = url.pic_url;})
       }, false);      
       if (file) reader.readAsDataURL(file);
-    },
-    submit() {
-      if(this.type == 'modify'){
-        this.modifyInfo({
-          equ_id: this.equ_id,
-          equ: {
-            ...this.equ, 
-            status: this.equ.status === false ? 1 : 0,
-          }
-        })
-      }
-      if(this.type == 'add'){
-        this.addClubDev(this.equ)
-      }
     }
   }
 }

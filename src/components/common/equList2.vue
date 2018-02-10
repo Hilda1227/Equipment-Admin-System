@@ -19,9 +19,6 @@ export default {
     goto(url) {
       this.$router.push(url);
     },
-    fresh() {
-      console.log("刷新二维码")
-    }
   }
 }
 </script>

@@ -4,13 +4,21 @@ export default {
   },
   set_toast (state, payload) {
     state.toast = payload;
+    setTimeout(() => {
+      state.toast.value = false;
+    } ,2000)
   },
   set_login (state, payload) {
-    state.user_id = payload;
-    localStorage.setItem('user_id', payload);
+    state.user = payload;
+    localStorage.setItem('user_id', payload.user_id);
   },
   set_indexList (state, payload) {
-    state.indexList = state.indexList.concat(payload);
+    if(payload.isInit){
+      state.indexList = payload.list;
+    }
+    else {
+      state.indexList = state.indexList.concat(payload.list);
+    }
   },
   set_searchList (state, payload) {
     state.searchList = payload;

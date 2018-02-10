@@ -23,7 +23,7 @@
       <check-icon :value.sync = "reject" @click.native = "() => {pass = false; reject = true}" >否决</check-icon> 
       <x-button @click.native = "$router.push({ name: 'feedback', params: {type: 'fill', br_id} })" mini plain type = "primary">填写反馈</x-button> 
     </div>
-    <x-button  type = "primary" @click.native = "submit">提交</x-button> 
+    <x-button  type = "primary" @click.native = "click">提交</x-button> 
   </div>
 
 </template>
@@ -31,6 +31,8 @@
 <script>
 import { XButton, Group, XInput, XTextarea, CheckIcon} from 'vux';
 import { mapActions, mapState } from 'vuex';
+import { debounce } from '../../../../util.js';
+
 export default {
   components: {
     XButton,
@@ -52,9 +54,8 @@ export default {
   created() {
     this.getOperationDetail({br_id: this.br_id, type: "out"});
   },
-  methods: {
-    ...mapActions(['getOperationDetail', 'confirmApply']),   
-    submit () {    
+  mounted () {
+    this.click = debounce(() => {
       this.confirmApply({
         br_id: this.br_id, 
         params: {
@@ -62,7 +63,10 @@ export default {
           back_msg: this.feedBack.back_msg,         
         }
       })
-   }
+    }, 2500, true)
+  },
+  methods: {
+    ...mapActions(['getOperationDetail', 'confirmApply']),   
   }
 }
 </script>

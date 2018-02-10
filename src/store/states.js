@@ -14,7 +14,10 @@ export default {
     type: 'success',
     'is-show-mask': false,
   },
-  user_id: void 0,
+  user: {
+    user_id: void 0,
+    soc_name: '',
+  },
   indexList: [],
   searchList: [],
   devDetail: {

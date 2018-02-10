@@ -23,7 +23,7 @@
     </group>
 
     <x-button class = "comfirm-btn" type = "primary"
-      @click.native = "() => confirmReturn({br_id})" 
+      @click.native = "click" 
       v-if = "type === 'waitComfirm'" >已收到设备
     </x-button>
   </div>
@@ -31,6 +31,7 @@
 <script>
 import { XButton, Group, XInput, XTextarea} from 'vux';
 import { mapActions, mapState } from 'vuex';
+import { debounce } from '../../../../util.js';
 export default {
   components: {
     XButton,
@@ -47,8 +48,12 @@ export default {
   computed: {
     ...mapState(['operationDetail'])
   },
+  mounted () {
+    this.click = debounce(function () {
+      this.confirmReturn({ br_id: this.br_id })
+    }, 2500, true)
+  },
   created() {
-    console.log(this.type, this.br_id);
     switch(this.type)
     {
       case "waitComfirm":
