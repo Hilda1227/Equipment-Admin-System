@@ -45,7 +45,8 @@ export default {
   },
   set_devDetail (state, payload) {
     state.devDetail = payload;
-    state.devDetail.equ_msg.status = payload.status === 0 ? true : false
+    let status = payload.equ_msg.status === 0 ? true : false;
+    state.devDetail.equ_msg.status = status;
   },
 
   // 借入设备

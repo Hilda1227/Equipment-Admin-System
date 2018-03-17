@@ -69,7 +69,7 @@ export default {
     commit('set_loading', { show: true })
     return axios.get('/api/equ/' + equ_id + '/')
     .then((res) => {
-      console.log(res.data);
+      console.log("收到",res.data);
       commit('set_devDetail', res.data);
       commit('set_loading', {show: false})
     })
@@ -217,6 +217,7 @@ export default {
   },
 
   modifyInfo({commit, state}, payload) {
+    console.log("发出",payload)
     commit('set_loading', {show: true, text: "正在提交"});
     return axios.post('api/equ/' + payload.equ_id + '/', formData(payload.equ))
     .then(res => {

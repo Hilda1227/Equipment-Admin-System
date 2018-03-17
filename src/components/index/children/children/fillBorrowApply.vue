@@ -1,36 +1,39 @@
 <template>
   <div>
-    <group>
-      <x-input title = "申请单位" :value = 'user.soc_name'  :readonly = 'true' ></x-input>
+    <form id = 'apply-form' @submit = "submit">
+      <m-input label-text = "申请单位" :disabled="true" v-model = 'user.soc_name'></m-input>
 
       <popup-picker title = "申请数量" placeholder = "请选择" :data = 'choose_count' v-model = 'count'></popup-picker>  
 
-      <x-input title = "申请人" placeholder = "申请人姓名"  required v-model = "user_name"></x-input>
+      <m-input label-text = "申请人" placeholder = "申请人姓名"  :required = 'true' v-model = "user_name"></m-input>
 
-      <x-input title = "手机" type = "tel" required  v-model = "phone_num"></x-input>
+      <m-input label-text = "手机" placeholder = "申请人电话" pattern = '^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$' :required = 'true' v-model = "phone_num"></m-input>
 
-      <x-input title = "QQ" placeholder = "输入QQ" required v-model = "qq_num"></x-input> 
+      <m-input label-text = "QQ" placeholder = "输入QQ" :required = 'true' v-model = "qq_num"></m-input> 
 
-      <x-input title = "使用地点" placeholder = "设备使用地点" required v-model = "place"></x-input>
+      <m-input label-text = "使用地点" placeholder = "设备使用地点" :required = 'true' v-model = "place"></m-input>
 
-      <datetime title = "归还日期" v-model = 'end_date' placeholder = "请选择"></datetime>      
+      <datetime title = "归还日期" v-model = 'end_date' :start-date = 'startTime' placeholder = "请选择"></datetime>      
 
-      <x-textarea title = "申请事由" placeholder = "使用设备事由" :height="30" :max="200" v-model = "usage"></x-textarea>
+      <m-textarea label-text = "申请事由" placeholder = "使用设备事由" :required = 'true' :height="30" v-model = "usage" :maxlength = "100"></m-textarea>
 
-    </group>
-      <x-button @click.native="submit" type = "primary">提交</x-button>    
+    </form>
+    <m-button type = 'submit' text = '提交' form = 'apply-form'></m-button>   
   </div>
 </template>
 <script>
-import { XButton, Group, XInput, XTextarea, Datetime, PopupPicker, Cell} from 'vux';
+import {XTextarea, Datetime, PopupPicker, Cell} from 'vux';
+import MInput from '../../../common/MInput.vue';
+import MButton from '../../../common/MButton.vue';
+import MTextarea from '../../../common/MTextarea.vue';
 import { mapActions, mapState } from 'vuex';
 import { debounce } from '../../../../util.js';
 export default {
   components: {
-    XButton,
-    XInput,
-    Group,
+    MInput,
+    MButton,
     XTextarea,
+    MTextarea,
     PopupPicker,
     Datetime,
     Cell,  
@@ -58,25 +61,30 @@ export default {
       }
       return [choose];
     },
-  },
-  mounted () {
-    this.submit = debounce(() => {
-      let form = {
-        user_id: this.user.user_id, 
-        equ_id: this.equ_id, 
-        count: this.count[0],
-        usage: this.usage, 
-        use_place: this.place, 
-        end_date: this.end_date,
-        qq_num: this.qq_num, 
-        phone_num: this.phone_num, 
-        user_name: this.user_name
-      };
-      this.esBorrowApply(form);
-    }, 2000, true)
+    startTime () {
+      let date  = new Date();
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, 0)}-${String(date.getDate()).padStart(2, 0)}`;
+    }
   },
   methods: {
     ...mapActions(['esBorrowApply']),
+    submit () {
+      let fn = debounce(() => {
+        let form = {
+          user_id: this.user.user_id, 
+          equ_id: this.equ_id, 
+          count: this.count[0],
+          usage: this.usage, 
+          use_place: this.place, 
+          end_date: this.end_date,
+          qq_num: this.qq_num, 
+          phone_num: this.phone_num, 
+          user_name: this.user_name
+        };
+        this.esBorrowApply(form);
+      }, 2000, true)
+      fn();
+    }
   }
 }
 </script>
@@ -85,6 +93,13 @@ export default {
   margin-top: 1.5rem;
   width: 90%;
   overflow: hidden; 
+}
+form{
+  background: #fff;
+  margin-top: 0.7rem;
+}
+textarea.weui-textarea{
+  padding-left: 20px;
 }
 </style>
 

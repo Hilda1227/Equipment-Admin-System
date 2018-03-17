@@ -9,7 +9,7 @@
 
     <router-view></router-view>
 
-    <router-link to="/systemFeedback" tag="div"  class="feedback"></router-link to="">    
+    <router-link to="/systemFeedback" tag="span" class="feedback"></router-link>    
   </div>
 </template>
 <script>
@@ -32,13 +32,6 @@
    flex-direction: column;
 }
 .nav-1{
-  // position: relative;
-  // height: 40px;
-  // display: flex;
-  // justify-content: space-around;
-  // background-color: #49afa1;
-  // color:#a7d4cd;
-  // flex-shrink: 0;
     position: relative;
     height: 40px;
     display: flex;
@@ -59,30 +52,14 @@
 .feedback{
   width: 3.1rem;
   height: 3.1rem;
-  border-radius: 50%;
-  background-color: #898888;
   position: fixed;
   bottom: 5rem;
   right: 2rem;
+  background: url('../../../assets/img/feedback.png');
+  background-size: cover;
+  background-position: center;
   z-index: 12;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &::before{
-    content: '';
-    height: 5px;
-    width: 40%;
-    border-radius: 2.5px;
-    background-color: #fff;    
-  }
-  &::after{
-    content: '';
-    position: absolute;
-    height: 40%;
-    width: 5px;
-    border-radius: 2.5px;
-    background-color: #fff;    
-  }
+  display: block;
 }
 </style>
 

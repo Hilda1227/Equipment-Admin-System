@@ -7,7 +7,7 @@ import actions   from './actions.js';
 import axios from 'axios';
 
 Vue.use(Vuex)
-axios.defaults.baseURL = 'http://115.159.147.103';
+axios.defaults.baseURL = 'http://equipments.stuzone.com';
 axios.defaults.withCredentials = true;
 
 const store = new Vuex.Store({

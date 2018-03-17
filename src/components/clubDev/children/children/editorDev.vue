@@ -1,22 +1,21 @@
 <template>
-  <div class = " wrap editor-dev">
-    <group>
-      <x-input title = "社团设备" placeholder = "完整名称" :required = "true" v-model = "equ.name"></x-input>
+  <div class = "wrap editor-dev">
+    <form  @submit = 'click' id = "editor-equ">
+      <m-input label-text = '社团设备' type = "text" placeholder = "完整名称" :required = "true" v-model = "equ.name" ></m-input>
 
-      <x-input title = "设备型号" placeholder = "选填" v-model = "equ.model"></x-input>
+      <m-input label-text = "设备型号" placeholder = "选填" v-model = "equ.model"></m-input>
 
-      <x-input title = "设备数量" placeholder = "可借用设备数量" is-type = "number" :required = "true" v-model = "equ.count"></x-input>
+      <m-input label-text = "设备数量" type = "number" placeholder = "可借用设备数量" :required = "true" v-model = "equ.count"></m-input>
 
-      <x-input title = "负责人" is-type = "china-name" placeholder = "负责人姓名" :required = "true" v-model = "equ.resp_person"></x-input>
+      <m-input label-text = "负责人" type = "text" placeholder = "负责人姓名" :required = "true" v-model = "equ.resp_person"></m-input>
 
-      <x-input title = "手机" type="tel" placeholder = "输入手机" :required = "true" v-model = "equ.phone_num"></x-input>
+      <m-input label-text = "手机" type = 'tel' pattern = '^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$' placeholder = "输入手机" :required = "true" v-model = "equ.phone_num"></m-input>
 
-       <x-input title = "QQ" placeholder = "输入QQ" :required = "true" v-model = "equ.qq_num"></x-input>
+      <m-input label-text = "QQ" type = 'number' placeholder = "输入QQ" :required = "true" v-model = "equ.qq_num"></m-input>
 
-      <x-input title = "存放地点" placeholder = "存放地点" :required = "true" v-model = "equ.place"></x-input>
+      <m-input label-text = "存放地点" type = "text" placeholder = "存放地点" :required = "true" v-model = "equ.place"></m-input>
 
-      <x-textarea title = "注意事项" :height="30" :max="100" v-model = "equ.notice"></x-textarea>
-
+      <m-textarea label-text = "注意事项"  :required = 'true' :height="30" v-model = "usage" :maxlength = "100"></m-textarea>
       <div class = "dev-img">
           <label for = "upload">设备图片</label >
           <div class="choose-img" 
@@ -24,21 +23,22 @@
             <input @change = "chooseImg()" class="upload" type = "file"></input>
           </div>
       </div>
-      <x-switch title = "设备不可借" v-model = "equ.status"></x-switch>
-    <x-button @click.native = "click()" class = "lend-btn" type = "primary">保存</x-button>
-    </group>
-
-    
+    </form>
+    <x-switch title = "设备不可借" v-model = "equ.status"></x-switch>
+    <m-button type = 'submit' text = '保存' form = 'editor-equ' marginTop = '0.5rem'></m-button>
   </div>
 </template>
 <script>
-import { XButton, Group, XInput, XTextarea, XSwitch} from 'vux';
+import { XButton, Group, XTextarea, XSwitch} from 'vux';
+import MInput from '../../../common/MInput.vue';
+import MButton from '../../../common/MButton.vue';
 import { mapActions, mapState } from 'vuex';
 import { debounce } from '../../../../util.js';
 export default {
   components: {
     XButton,
-    XInput,
+    MInput,
+    MButton,
     Group,
     XTextarea,
     XSwitch,
@@ -64,22 +64,6 @@ export default {
   computed: {
     ...mapState(['devDetail'])
   },
-  mounted () {
-    this.click = debounce(() => {
-      if(this.type == 'modify'){
-        this.modifyInfo({
-          equ_id: this.equ_id,
-          equ: {
-            ...this.equ, 
-            status: this.equ.status === false ? 1 : 0,
-          }
-        })
-      }
-      if(this.type == 'add'){
-        this.addClubDev(this.equ)
-      }
-    }, 2500, true)
-  },
   created(){
     if(this.type == 'modify'){
       this.getDevDetail(this.equ_id)
@@ -101,11 +85,36 @@ export default {
         this.upload({file}).then(url => {this.equ.pic_url = url.pic_url;})
       }, false);      
       if (file) reader.readAsDataURL(file);
+    },
+    click() {
+      let submit = debounce(() => {
+        if(this.type == 'modify'){
+          this.modifyInfo({
+            equ_id: this.equ_id,
+            equ: {
+              ...this.equ, 
+              status: this.equ.status === false ? 1 : 0,
+            }
+          })
+        }
+        if(this.type == 'add'){
+          this.addClubDev(this.equ)
+        }
+      }, 2500, true)
+      submit();
     }
   }
 }
 </script>
+
 <style lang="scss" scoped>
+.editor-dev, form{
+  width: 100%;
+}
+form{
+  background: #fff;
+  margin-top: 0.7rem;
+}
 .dev-img{
     padding: 10px 15px;
     display: flex;
@@ -137,9 +146,12 @@ export default {
       }
     }
     label{
-        width: 5rem;
+        width: 30%;
         display: inline-block;
     }   
+}
+.weui-cell__bd{
+  padding-left: 9rem;
 }
 .lend-btn{
   margin-top: 0.5rem !important;

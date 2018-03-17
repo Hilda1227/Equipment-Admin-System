@@ -39,9 +39,13 @@
         <span class = "title">手机</span>
         <span class = "value">{{ devDetail.equ_msg.phone_num }}</span>
         </li>      
-      <li @click = "showLendRecord = !showLendRecord">
+      <li>
         <span class = "title">在借记录</span>
-        <span class = "value" v-if = 'devDetail.br_list.length' :style = "{ color: '#3dc83b' }">
+        <span class = "value" 
+          @click = "showLendRecord = !showLendRecord" 
+          v-if = 'devDetail.br_list.length' 
+          :style = "{ color: '#3dc83b' }"
+        >
           {{`${devDetail.br_list[0].soc_name} | ${devDetail.br_list[0].count} | ${devDetail.br_list[0].end_date}`}}
         </span>
         <span class = "value" v-else>无</span>
