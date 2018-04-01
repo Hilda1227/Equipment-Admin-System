@@ -1,6 +1,6 @@
 <template>
   <div class = "wrap editor-dev">
-    <form  @submit = 'click' id = "editor-equ">
+    <form  @submit.prevent = 'click' id = "editor-equ">
       <m-input label-text = '社团设备' type = "text" placeholder = "完整名称" :required = "true" v-model = "equ.name" ></m-input>
 
       <m-input label-text = "设备型号" placeholder = "选填" v-model = "equ.model"></m-input>
@@ -15,7 +15,7 @@
 
       <m-input label-text = "存放地点" type = "text" placeholder = "存放地点" :required = "true" v-model = "equ.place"></m-input>
 
-      <m-textarea label-text = "注意事项"  :required = 'true' :height="30" v-model = "usage" :maxlength = "100"></m-textarea>
+      <m-textarea label-text = "注意事项"  :required = 'true' :rows = '3' v-model = "equ.notice" :maxlength = "100"></m-textarea>
       <div class = "dev-img">
           <label for = "upload">设备图片</label >
           <div class="choose-img" 
@@ -32,6 +32,7 @@
 import { XButton, Group, XTextarea, XSwitch} from 'vux';
 import MInput from '../../../common/MInput.vue';
 import MButton from '../../../common/MButton.vue';
+import MTextarea from '../../../common/MTextarea.vue';
 import { mapActions, mapState } from 'vuex';
 import { debounce } from '../../../../util.js';
 export default {
@@ -40,7 +41,7 @@ export default {
     MInput,
     MButton,
     Group,
-    XTextarea,
+    MTextarea,
     XSwitch,
   },
   data() {    
@@ -57,7 +58,7 @@ export default {
         place: '',
         pic_url: '',
         status: false, 
-        notice: ''       
+        notice: '',      
       }
     }
   },
@@ -87,7 +88,8 @@ export default {
       if (file) reader.readAsDataURL(file);
     },
     click() {
-      let submit = debounce(() => {
+      let submit = debounce((e) => {
+        
         if(this.type == 'modify'){
           this.modifyInfo({
             equ_id: this.equ_id,
@@ -108,25 +110,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.editor-dev, form{
-  width: 100%;
+.editor-dev{
+  position: relative;
+  // display: flex;
+  // align-items: center;
+  // flex-direction: column;
 }
 form{
+  width: 100%;
   background: #fff;
   margin-top: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 .dev-img{
-    padding: 10px 15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
     display: flex;
     align-items: flex-start;
     position: relative;
+    border-top: 1px solid #D9D9D9;
+    width: 95%;
+    label{
+      width: 30%;
+      display: inline-block;
+    }
     &::before{
         content: " ";
         position: absolute;
         top: 0;
         right: 0;
         height: 1px;
-        border-top: 1px solid #D9D9D9;
+        
         transform: scaleY(0.5);
         left: 15px;
     }
@@ -145,18 +161,7 @@ form{
           position: absolute;
       }
     }
-    label{
-        width: 30%;
-        display: inline-block;
-    }   
 }
-.weui-cell__bd{
-  padding-left: 9rem;
-}
-.lend-btn{
-  margin-top: 0.5rem !important;
-  width: 90%;
-  overflow: hidden; 
-}
+
 </style>
 

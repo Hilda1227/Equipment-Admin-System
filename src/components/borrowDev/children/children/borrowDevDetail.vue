@@ -58,7 +58,7 @@ export default {
   created() {
     switch(this.type){
       case 'borrowing':       
-	      this.title   = '借用时间，剩余n天'; 
+	      this.title   = `借用时间，剩余${this.$route.query.surplus_day}天`; 
         this.btn_text = '提前还'; 
         break;
       case 'hasTimeoutReturn':

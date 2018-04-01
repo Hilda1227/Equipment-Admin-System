@@ -3,7 +3,7 @@
     <router-view></router-view>
     <loading :show="loading.show" :text="loading.text"></loading>
     <alert :value="alert.value" :content="alert.content" :title="alert.title"></alert>
-    <toast :value="toast.value" :type="toast.type" :is-show-mask="toast['is-show-mask']" :text="toast.text"></Toast>
+    <toast :value="toast.value" :type="toast.type || 'text'" :is-show-mask="toast['is-show-mask']" :text="toast.text"></Toast>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
       'loading',
       'alert',
       'toast'
-    ])
+    ]),
   }
 }
 </script>

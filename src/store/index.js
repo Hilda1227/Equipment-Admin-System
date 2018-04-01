@@ -29,4 +29,29 @@ store.registerModule('vux', {
   }
 })
 
-export default store
+axios.interceptors.request.use(function (config) {
+  // 在发送请求之前做些什么
+  store.commit('set_loading', { show: true });
+  return config;
+}, function (error) {
+  // 对请求错误做些什么
+  return Promise.reject(error);
+});
+
+axios.interceptors.response.use(res => {// 响应成功关闭loading
+  console.log(res.data);
+  store.commit('set_loading', { show: false });
+  if(String(res.data.error) !== "0" && typeof res.data.error !== 'undefined'){
+    store.commit('set_alert', {value: true, title: '', content:  res.data.error});
+  }
+  return Promise.resolve(res)
+ }, err => {
+   if(err) {
+     console.log("有err",err)
+    store.commit('set_loading', { show: false });  
+    store.commit('set_toast', {value: true, text: '请求失败~', type: 'text'})
+   }
+  return Promise.reject(err)
+ })
+
+export default store;

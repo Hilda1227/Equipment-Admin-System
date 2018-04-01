@@ -30,7 +30,7 @@ export default {
 <style lang="scss" scoped>
 .m-input{
   width: 100%;
-  height: 2.7rem;
+  height: 2.8rem;
   background: #fff;
   display: flex;
   justify-content: flex-end;
@@ -48,6 +48,7 @@ export default {
       color: #000;
       line-height: 1.6;
       font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+      width: 30%;
     }
     input{
       height: 90%;

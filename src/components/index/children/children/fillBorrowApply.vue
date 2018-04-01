@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form id = 'apply-form' @submit = "submit">
+    <form id = 'apply-form' @submit.prevent = "submit">
       <m-input label-text = "申请单位" :disabled="true" v-model = 'user.soc_name'></m-input>
 
       <popup-picker title = "申请数量" placeholder = "请选择" :data = 'choose_count' v-model = 'count'></popup-picker>  
@@ -15,7 +15,7 @@
 
       <datetime title = "归还日期" v-model = 'end_date' :start-date = 'startTime' placeholder = "请选择"></datetime>      
 
-      <m-textarea label-text = "申请事由" placeholder = "使用设备事由" :required = 'true' :height="30" v-model = "usage" :maxlength = "100"></m-textarea>
+      <m-textarea label-text = "申请事由" placeholder = "使用设备事由" :required = 'true' :rows = '3' v-model = "usage" :maxlength = "100"></m-textarea>
 
     </form>
     <m-button type = 'submit' text = '提交' form = 'apply-form'></m-button>   

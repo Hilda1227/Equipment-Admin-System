@@ -9,7 +9,7 @@
           :value = 'value'
           :disabled = 'disabled'
           :maxlength = 'maxlength'
-          :height = 'height'
+          :rows = 'rows'
           @input="updateValue($event.target.value)"
       />
     </label>
@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  props: ['labelText', 'placeholder', 'required', 'value', 'height', 'disabled', 'maxlength','leftWidth'],
+  props: ['labelText', 'placeholder', 'required', 'value', 'rows', 'disabled', 'maxlength','leftWidth'],
   methods: {
     updateValue: function (value) {
       this.$emit('input', value)
@@ -55,7 +55,7 @@ export default {
       flex-grow: 1;
       color:#c8c8c8;
       outline: 0;
-      height: 200px;
+      // height: 3.5rem;
       font-family: -apple-system-font, "Helvetica Neue", sans-serif;
       &::placeholder{
         font-family: inherit;

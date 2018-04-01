@@ -1,11 +1,11 @@
 <template>
   <div class = " wrap feedback">
-    <form id = "feed_back" @submit = "submit">
+    <form id = "feed_back" @submit.prevent = "submit">
       <m-textarea 
         v-model = "val" 
         placeholder = "请在此写下您对设备管理系统的建议或疑问" 
         :maxlength = "100" 
-        :height = "250"
+        :rows = '10'
         :left-width = "0"
         :required = "true"
         > 
@@ -53,5 +53,6 @@ export default {
 .weui-btn,.weui-btn_primary{
   margin-top: 4rem !important;
 }
+
 </style>
 

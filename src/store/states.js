@@ -11,7 +11,7 @@ export default {
   },
   toast: {
     value: false,
-    type: 'success',
+    type: 'text',
     'is-show-mask': false,
   },
   user: {

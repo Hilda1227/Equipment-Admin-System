@@ -60,10 +60,10 @@ export default {
         this.title = "已归还，请确认设备";
         break;			  
       case "hasLend":
-        this.title = "归还时间，n天后";
+        this.title = `归还时间，${this.$route.query.surplus_day}天后`;
         break;
       case "hasTimeout":
-        this.title = "已逾期，n天";
+        this.title = `已逾期，${this.$route.query.surplus_day}天`;
         break;
     }	
     this.getOperationDetail({br_id: this.br_id, type: "out"});

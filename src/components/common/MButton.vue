@@ -1,11 +1,13 @@
 <template>
-  <button 
-    :type = 'type || "submit"' 
-    :form = 'form'
-    :style="{marginTop: marginTop}"
-  >
-      {{ text }}
-  </button>
+  <div class = 'm-button'>
+    <button 
+      :type = 'type || "submit"' 
+      :form = 'form'
+      :style="{marginTop: marginTop}"
+    >
+        {{ text }}
+    </button>
+    </div>
 </template>
 
 <script>
@@ -13,8 +15,6 @@ export default {
   props: ['type', 'text', 'form','marginTop'],
   methods: {
       submit (e) {
-          console.log("zi")
-        // e.preventDefault();
         this.$emit('submit')
       }
   }
@@ -23,10 +23,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.m-button{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 button{
-    content: " ";
     width: 95%;
-    height: 2.3rem;
+    height: 2.4rem;
+    font-size: 1rem;
     background: #09bb07;
     border-radius: 10px;
     color: #fff;

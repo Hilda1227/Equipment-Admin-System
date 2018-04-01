@@ -11,14 +11,14 @@ export default {
     return state.hasLend.map(item => ({
       ...item,
       state: `借用时长，剩余${item.surplus_day}天`,
-      url: `/clubDevDetail/hasLend/${item.id}`
+      url: `/clubDevDetail/hasLend/${item.id}?surplus_day=${item.surplus_day}`
     }))
   }, 
   hasTimeout(state) {
     return state.hasTimeout.map(item => ({
       ...item,
       state: '对方已逾期',
-      url: '/clubDevDetail/hasTimeout/1'
+      url: `/clubDevDetail/hasTimeout/1?surplus_day=${item.surplus_day}`
     }))
   }, 
   waitComfirm(state) {
@@ -34,7 +34,7 @@ export default {
     return state.borrowing.map(item => ({
       ...item,
       state: `借用时长，剩余${item.surplus_day}天`,
-      url: `/borrowDevDetail/borrowing/${item.br_id}`
+      url: `/borrowDevDetail/borrowing/${item.br_id}?surplus_day=${item.surplus_day}`
     }))
   },
   checking(state) {
