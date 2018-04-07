@@ -5,7 +5,7 @@
         <div class = "preview" :style = "{backgroundImage: 'url(' + item.src + ')'}"></div>
         <div class = "info">
             <span class = "equ_name">{{ item.title }}</span>
-            <span>库存<span>{{ item.count }}</span></span>
+            <span>库存<span class="count">{{ item.count }}</span></span>
         </div>
       </div> 
     </div>
@@ -81,5 +81,6 @@ export default {
   }
 }
 }
+
 </style>
 

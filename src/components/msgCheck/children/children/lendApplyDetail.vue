@@ -19,13 +19,17 @@
     </group>  
 
     <div class = "operation">
-      <check-icon :value.sync = "pass" @click.native = "() => {pass = true; reject = false}">通过</check-icon>  
-      <check-icon :value.sync = "reject" @click.native = "() => {pass = false; reject = true}" >否决</check-icon> 
-      <x-button @click.native = "$router.push({ name: 'feedback', params: {type: 'fill', br_id} })" mini plain type = "primary">填写反馈</x-button> 
+      <div class="radios">
+        <check-icon :value.sync = "pass" @click.native = "() => {pass = true; reject = false}">通过</check-icon>  
+        <check-icon :value.sync = "reject" @click.native = "() => {pass = false; reject = true}" >否决</check-icon> 
+      </div>
+      <button class="fill"
+        @click = "$router.push({ name: 'feedback', params: {type: 'fill', br_id}, query: {soc_name: operationDetail.soc_name}})" 
+        type = "primary">填写反馈
+      </button> 
     </div>
     <x-button  type = "primary" @click.native = "click">提交</x-button> 
   </div>
-
 </template>
 
 <script>
@@ -71,14 +75,38 @@ export default {
 }
 </script>
 <style lang = "scss" scoped>
+.operationDetail{
+  display: flex;
+  flex-direction: column;
+}
 .operation{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-top: 0.5rem;
-    padding-left: 10px;
+    width: 95%;
+    align-items: center;
+    margin-left: 2.5%;
     .vux-check-icon{
-        margin-right: 1rem;
+        margin: 0 1.5rem 0 0;
     }
+    .radios{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      
+    }
+    
+}
+.fill{
+  border: none;
+  background: transparent;
+  width: 4rem;
+  height: 1.8rem;
+  display: inline-block;
+  border: #1AAD19;
+  border-radius: 3px;
+  border: 1px solid #1AAD19;
+  color: #1AAD19; 
 }
 </style>
 

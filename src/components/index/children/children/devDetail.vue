@@ -2,7 +2,7 @@
   <div class = " wrap can-lend-detail">
     <ul class = "detail-info">      
       <li>
-        <li>
+
         <span class = "title">社团</span>
         <span class = "value">{{ devDetail.equ_msg.soc_name }}</span>
         </li>     
@@ -67,7 +67,7 @@
     </div>
 
     <x-button class = "lend-btn"
-      v-if = "this.type === 'canLend'"
+      v-if = "this.type === 'canlend'"
       @click.native="$router.push({name: 'fillBorrowApply', params: {equ_id}})" 
       type="primary">我要借
     </x-button>

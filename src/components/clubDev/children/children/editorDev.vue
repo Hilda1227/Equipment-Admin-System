@@ -9,7 +9,7 @@
 
       <m-input label-text = "负责人" type = "text" placeholder = "负责人姓名" :required = "true" v-model = "equ.resp_person"></m-input>
 
-      <m-input label-text = "手机" type = 'tel' pattern = '^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$' placeholder = "输入手机" :required = "true" v-model = "equ.phone_num"></m-input>
+      <m-input label-text = "手机" type = 'tel'  placeholder = "输入手机" :required = "true" v-model = "equ.phone_num"></m-input>
 
       <m-input label-text = "QQ" type = 'number' placeholder = "输入QQ" :required = "true" v-model = "equ.qq_num"></m-input>
 

@@ -6,6 +6,7 @@ export const serialize = function (payload) {
   let result = query.substring(0, query.length-1);
   return result;
 }
+
 export const formData = function (data) {
   let formdata = new FormData();
   Object.keys(data).forEach(key => {
@@ -34,5 +35,12 @@ export const debounce = function (fn, delay, immudiate) {
         fn.apply(this, args)
       }, delay)
     }
+  }
+}
+
+export const formatDate = function (time, str) {
+  if(time != null){
+      const date = new Date(time);
+      return date.getFullYear() + str + (date.getMonth() + 1) + str + date.getDate() ;
   }
 }

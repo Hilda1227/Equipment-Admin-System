@@ -39,19 +39,22 @@ axios.interceptors.request.use(function (config) {
 });
 
 axios.interceptors.response.use(res => {// 响应成功关闭loading
-  console.log(res.data);
   store.commit('set_loading', { show: false });
+  console.log("hehe",res)
   if(String(res.data.error) !== "0" && typeof res.data.error !== 'undefined'){
     store.commit('set_alert', {value: true, title: '', content:  res.data.error});
   }
   return Promise.resolve(res)
  }, err => {
-   if(err) {
-     console.log("有err",err)
-    store.commit('set_loading', { show: false });  
-    store.commit('set_toast', {value: true, text: '请求失败~', type: 'text'})
-   }
+  if(err) {
+    console.log(err)
+    if(String(err.error) !== "0" && typeof err.error !== 'undefined'){
+      store.commit('set_alert', {value: true, title: '', content:  err.error});
+    }
+     store.commit('set_loading', { show: false });  
+     store.commit('set_toast', {value: true, text: '请求失败~', type: 'text'})
+  }
   return Promise.reject(err)
- })
+})
 
 export default store;

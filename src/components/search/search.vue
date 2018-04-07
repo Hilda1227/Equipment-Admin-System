@@ -2,8 +2,10 @@
   <div class = "search">
     <search
       @on-result-click = "resultClick"
-      @on-change = "getResult(value)"
+      @input.native = "getResult(value)"
       @on-submit = "resultClick"
+      @on-focus = "getResult(value)"
+      @on-cancel = "$router.push({name: 'list'})"
       :results = "results"
       v-model = "value"
       position = "absolute"
