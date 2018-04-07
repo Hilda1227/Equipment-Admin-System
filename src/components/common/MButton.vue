@@ -17,7 +17,7 @@ export default {
       submit (e) {
         this.$emit('submit')
       }
-  }
+  },
 }
 
 </script>

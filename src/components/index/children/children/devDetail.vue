@@ -67,13 +67,13 @@
     </div>
 
     <x-button class = "lend-btn"
-      v-if = "this.type === 'canlend'"
+      v-if = "this.type === 'canLend'"
       @click.native="$router.push({name: 'fillBorrowApply', params: {equ_id}})" 
       type="primary">我要借
     </x-button>
     <x-button class = "lend-btn"
       v-else  
-      disabled = true     
+      :disabled = 'true' 
       type="primary">不可借
     </x-button>
   </div>

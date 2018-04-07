@@ -7,7 +7,7 @@
 
       <m-input label-text = "申请人" placeholder = "申请人姓名"  :required = 'true' v-model = "user_name"></m-input>
 
-      <m-input label-text = "手机" placeholder = "申请人电话" pattern = '^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$' :required = 'true' v-model = "phone_num"></m-input>
+      <m-input label-text = "手机" placeholder = "申请人电话" pattern = '^1[0-9]{10}$' :required = 'true' v-model = "phone_num"></m-input>
 
       <m-input label-text = "QQ" placeholder = "输入QQ" :required = 'true' v-model = "qq_num"></m-input> 
 

@@ -87,9 +87,9 @@ export default {
     return axios.get(`/api/operation/${payload.br_id}/return`)
     .then((res) => {
       commit('set_toast',{value: true, type: 'success', 'is-show-mask': true, text: '归还成功',});
-    })
-    .catch((err) => {
-      commit('set_toast',{value: true, type: 'text', text: '设备当前状态不支持归还',});
+      setTimeout(() => {
+        router.push({ name: 'borrowing' })
+      }, 2000)
     })
   },
 

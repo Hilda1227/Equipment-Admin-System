@@ -11,6 +11,7 @@
           :value = 'value'
           :disabled = 'disabled'
           @input="updateValue($event.target.value)"
+          ref = 'input'
       />
     </label>
   </div>
@@ -22,6 +23,26 @@ export default {
   methods: {
     updateValue: function (value) {
       this.$emit('input', value)
+    }
+  },
+  mounted () {
+    if(this.type === 'tel'){
+      let el = this.$refs.input;
+      el.addEventListener("input", (event) => {
+        if (!eval('/' + this.pattern + '/').test(this.value)) {
+          el.setCustomValidity("请输入正确的电话号码");
+        } else {
+          el.setCustomValidity('');
+        }
+      });
+      
+      el.form.addEventListener("submit", function (event) {
+        if (!eval('/' + this.pattern + '/').test(this.value)) {
+          el.setCustomValidity("请输入正确的电话号码");
+        } else {
+          el.setCustomValidity('');
+        }
+      }, false);
     }
   }
 }

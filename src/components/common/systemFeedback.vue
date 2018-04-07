@@ -10,7 +10,7 @@
         :required = "true"
         > 
       </m-textarea>   
-      <m-input label-text = "联系电话" placeholder = "方便我们联系你" left-width="25%" pattern = '^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$' v-model = "tel"></m-input>
+      <m-input label-text = "联系电话" placeholder = "方便我们联系你" left-width="25%" pattern = '^1[0-9]{10}$' v-model = "tel"></m-input>
     </form>
     <m-button type = 'submit' text = '提交' form = 'feed_back'></m-button> 
   </div>

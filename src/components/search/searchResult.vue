@@ -19,7 +19,7 @@
               <p class = "weui-media-box__desc"> {{ item.soc_name }}</p>
               <p class = "weui-media-box__desc"><span class = "count">{{ item.count }}</span>个剩余</p>
           </div>
-          <x-button @click.native="() => toDetail(item.count > 0 ? 'canlend' : 'hasLend', item.id)" mini plain type="primary" >
+          <x-button @click.native="() => toDetail(item.count > 0 ? 'canLend' : 'hasLend', item.id)" mini plain type="primary" >
             {{ item.count > 0 ? '可借' : '已借出' }}
           </x-button>
         </a>
