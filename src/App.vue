@@ -2,7 +2,7 @@
   <div id="app">
     <router-view></router-view>
     <loading :show="loading.show" :text="loading.text"></loading>
-    <alert :value="alert.value" :content="alert.content" :title="alert.title"></alert>
+    <alert @on-hide="onHide" :value="alert.value" :content="alert.content" :title="alert.title"></alert>
     <toast :value="toast.value" :type="toast.type || 'text'" :is-show-mask="toast['is-show-mask']" :text="toast.text"></Toast>
   </div>
 </template>
@@ -23,6 +23,23 @@ export default {
       'alert',
       'toast'
     ]),
+  },
+  methods: {
+    onHide () {
+      let content
+      try {
+        content = this.alert.content.trim()
+      } catch (e) {
+        console.log('App.vue', e)
+      }
+      switch (content) {
+        case '未登陆':
+          this.$router.push({ name: 'login' })
+          break
+        default:
+          this.$router.go(-1)
+      }
+    }
   }
 }
 </script>
