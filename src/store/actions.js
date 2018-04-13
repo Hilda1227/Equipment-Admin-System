@@ -64,7 +64,8 @@ export default {
   getClubDev ({commit, state}, payload) {
     let query = serialize(payload),
         types = ['canLend', 'hasLend', 'hasTimeout', 'waitComfirm',];
-    return axios.get(`/api/user/${state.user.user_id}/manage_equipments` + query)
+    let user_id = state.user.user_id ? state.user.user_id : localStorage.getItem('user_id')
+    return axios.get(`/api/user/${user_id}/manage_equipments` + query)
       .then((res) => {
         let key = payload.key ;
         commit(`set_${types[key-1]}`, res.data.message_list);
@@ -76,7 +77,8 @@ export default {
   getBorrowDev ({commit, state}, payload) {
     let query = serialize(payload),
         types = ['borrowing', 'hasTimeoutReturn', 'checking', 'hasTimeoutReturn'];
-    return axios.get(`/api/user/${state.user.user_id}/borrowed_equipments` + query)
+    let user_id = state.user.user_id ? state.user.user_id : localStorage.getItem('user_id')
+    return axios.get(`/api/user/${user_id}/borrowed_equipments` + query)
     .then((res) => {
       commit(`set_${types[payload.key-1]}`, res.data.message_list);
       return res.data.message_list;
@@ -96,7 +98,8 @@ export default {
   getMsgCheck ({commit, state}, payload) {
     let query = serialize(payload),
         types = ['lendApply','borrowApply'];
-    return axios.get(`/api/user/${state.user.user_id}/message` + query)
+    let user_id = state.user.user_id ? state.user.user_id : localStorage.getItem('user_id')
+    return axios.get(`/api/user/${user_id}/message` + query)
     .then((res) => {
       commit(`set_${types[payload.key-1]}`, res.data.message_list);
     })
@@ -156,7 +159,8 @@ export default {
 
   systemFeedback({commit, state}, payload) {
     let date = new Date();
-    payload.commit_id = Number(state.user.user_id);
+    let user_id = state.user.user_id ? state.user.user_id : localStorage.getItem('user_id')
+    payload.commit_id = Number(user_id);
     payload.commit_time = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}--${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
     return axios.post('/feedback', payload)
     .then(res => {
