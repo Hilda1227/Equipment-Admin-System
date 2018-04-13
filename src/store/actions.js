@@ -96,7 +96,8 @@ export default {
   getMsgCheck ({commit, state}, payload) {
     let query = serialize(payload),
         types = ['lendApply','borrowApply'];
-    return axios.get(`/api/user/${state.user.user_id}/message` + query)
+    let user_id = state.user.user_id ? state.user.user_id : localStorage.getItem('user_id')
+    return axios.get(`/api/user/${user_id}/message` + query)
     .then((res) => {
       commit(`set_${types[payload.key-1]}`, res.data.message_list);
     })
