@@ -8,20 +8,22 @@
         </li>
         <li class="tail">{{ confirm_time }}&nbsp;{{ out_soc_name }}</li>
       </ul>
-      <x-button 
-        v-if = "type === 'fill'" 
+      <x-button
+        v-if = "type === 'fill'"
         @click.native = "submit"
         type = "primary">提交
-      </x-button> 
+      </x-button>
   </div>
 </template>
 <script>
-import { XButton, XTextarea} from 'vux';
+import { XButton, XTextarea } from 'vux';
 import { mapActions, mapState, mapMutations } from 'vuex';
 import { formatDate } from '../../../../util.js';
+
 export default {
+  name: 'feedback',
   components: {
-    XButton,   
+    XButton,
     XTextarea,
   },
   data() {
@@ -40,8 +42,8 @@ export default {
   created() {
     if(this.type === 'view'){
       this.getFeedBack({ br_id: this.br_id });
-      this.confirm_time = feedBack.confirm_time;
-      this.out_soc_name = feedback.out_soc_name;
+      this.confirm_time = this.feedBack.confirm_time;
+      this.out_soc_name = this.feedBack.out_soc_name;
     }else{
       this.confirm_time = formatDate(new Date(), '.');
       this.out_soc_name = this.$route.query.soc_name;
