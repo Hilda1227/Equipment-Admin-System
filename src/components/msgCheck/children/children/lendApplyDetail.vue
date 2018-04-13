@@ -15,7 +15,7 @@
       
       <x-input readonly title = "归还日期" v-model = 'operationDetail.end_date'></x-input>
       
-      <x-textarea readonly title = "申请事由" :height = "30" :max = "200" v-model = 'operationDetail.usage'></x-textarea>
+      <x-textarea readonly title = "申请事由" :height = "30" :max = "200" v-model = 'operationDetail.usages'></x-textarea>
     </group>  
 
     <div class = "operation">
@@ -24,6 +24,7 @@
         <check-icon :value.sync = "reject" @click.native = "() => {pass = false; reject = true}" >否决</check-icon> 
       </div>
       <button class="fill"
+        :disabled = 'pass'
         @click = "$router.push({ name: 'feedback', params: {type: 'fill', br_id}, query: {soc_name: operationDetail.soc_name}})" 
         type = "primary">填写反馈
       </button> 
@@ -64,7 +65,7 @@ export default {
         br_id: this.br_id, 
         params: {
           confirm_status: this.pass ? 1 : 2, 
-          back_msg: this.feedBack.back_msg,         
+          back_msg: this.reject ? this.feedBack.back_msg : '',         
         }
       })
     }, 2500, true)
@@ -107,6 +108,10 @@ export default {
   border-radius: 3px;
   border: 1px solid #1AAD19;
   color: #1AAD19; 
+}
+button:disabled{
+  border-color: #999;
+  color: #999
 }
 </style>
 

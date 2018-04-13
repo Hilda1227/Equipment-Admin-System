@@ -9,7 +9,7 @@
 
       <x-input title = "日期" required v-model = "operationDetail.start_time" :readonly = "true"></x-input>
 
-      <x-input title = "用途" is-type="china-mobile" required v-model = "operationDetail.usage" :readonly = "true"></x-input>  
+      <x-input title = "用途" is-type="china-mobile" required v-model = "operationDetail.usages" :readonly = "true"></x-input>  
 
       <x-input title = "现存地点" required v-model = "operationDetail.place" :readonly = "true"></x-input>
 
@@ -49,7 +49,7 @@ export default {
     ...mapState(['operationDetail'])
   },
   mounted () {
-    this.click = debounce(function () {
+    this.click = debounce(() => {
       this.confirmReturn({ br_id: this.br_id })
     }, 2500, true)
   },

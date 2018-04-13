@@ -15,7 +15,7 @@
 
       <datetime title = "归还日期" v-model = 'end_date' :start-date = 'startTime' placeholder = "请选择"></datetime>      
 
-      <m-textarea label-text = "申请事由" placeholder = "使用设备事由" :required = 'true' :rows = '3' v-model = "usage" :maxlength = "100"></m-textarea>
+      <m-textarea label-text = "申请事由" placeholder = "使用设备事由" :required = 'true' :rows = '3' v-model = "usages" :maxlength = "100"></m-textarea>
 
     </form>
     <m-button type = 'submit' text = '提交' form = 'apply-form'></m-button>   
@@ -49,7 +49,7 @@ export default {
       phone_num: null,
       place: '',
       end_date: '',
-      usage: '',      
+      usages: '',      
     }
   },
   computed: {
@@ -74,13 +74,14 @@ export default {
           user_id: this.user.user_id, 
           equ_id: this.equ_id, 
           count: this.count[0],
-          usage: this.usage, 
+          usages: this.usages, 
           use_place: this.place, 
           end_date: this.end_date,
           qq_num: this.qq_num, 
           phone_num: this.phone_num, 
           user_name: this.user_name
         };
+        console.log(form)
         this.esBorrowApply(form);
       }, 2000, true)
       fn();
