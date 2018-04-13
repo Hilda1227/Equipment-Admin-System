@@ -36,6 +36,9 @@ export default {
         case '未登陆':
           this.$router.push({ name: 'login' })
           break
+        case '用户不存在':
+          this.$router.push({ name: 'login' })
+          break
         default:
           this.$router.go(-1)
       }
