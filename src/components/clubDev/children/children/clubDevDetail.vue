@@ -9,7 +9,7 @@
 
       <x-input title = "日期" required v-model = "operationDetail.start_time" :readonly = "true"></x-input>
 
-      <x-input title = "用途" is-type="china-mobile" required v-model = "operationDetail.usages" :readonly = "true"></x-input>  
+      <x-input title = "用途"  required v-model = "operationDetail.usages" :readonly = "true"></x-input>  
 
       <x-input title = "现存地点" required v-model = "operationDetail.place" :readonly = "true"></x-input>
 
@@ -57,13 +57,13 @@ export default {
     switch(this.type)
     {
       case "waitComfirm":
-        this.title = "已归还，请确认设备";
+        this.title = "已归还 请确认设备";
         break;			  
       case "hasLend":
-        this.title = `归还时间，${this.$route.query.surplus_day}天后`;
+        this.title = `归还时间 ${this.$route.query.surplus_day}天后`;
         break;
       case "hasTimeout":
-        this.title = `已逾期，${this.$route.query.surplus_day}天`;
+        this.title = `已逾期 ${this.$route.query.surplus_day}天`;
         break;
     }	
     this.getOperationDetail({br_id: this.br_id, type: "out"});

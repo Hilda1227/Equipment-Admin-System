@@ -18,7 +18,10 @@
 
 <script>
 export default {
-  props: ['labelText', 'placeholder', 'required', 'value', 'rows', 'disabled', 'maxlength','leftWidth'],
+  props: [
+    'labelText', 'placeholder', 'required', 'value',
+     'rows', 'disabled', 'maxlength','leftWidth'
+  ],
   methods: {
     updateValue: function (value) {
       this.$emit('input', value)

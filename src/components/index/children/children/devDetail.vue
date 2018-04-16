@@ -57,7 +57,7 @@
         <p class = "dialog-title">在借记录</p>
         <div class = "img-box">
           <p v-for="item in devDetail.br_list">
-            {{`${item.soc_name}-借了${item.count}-${item.end_date}归还`}}
+            {{`${item.in_soc_name}-借了${item.count}-${item.end_date}归还`}}
           </p>
         </div>
         <div @click = "showLendRecord = false">

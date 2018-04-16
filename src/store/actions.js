@@ -86,7 +86,7 @@ export default {
   },
 
   priorReturn ({commit, state}, payload) {
-    return axios.get(`/api/operation/${payload.br_id}/return`)
+    return axios.get(`/api/operation/${payload.br_id}/confirm_return`)
     .then((res) => {
       commit('set_toast',{value: true, type: 'success', 'is-show-mask': true, text: '归还成功',});
       setTimeout(() => {

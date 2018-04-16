@@ -10,22 +10,22 @@ export default {
   hasLend(state) {
     return state.hasLend.map(item => ({
       ...item,
-      state: `借用时长，剩余${item.surplus_day}天`,
-      url: `/clubDevDetail/hasLend/${item.id}?surplus_day=${item.surplus_day}`
+      state: `${item.equ_name} 借用时长 剩余${item.surplus_day}天`,
+      url: `/clubDevDetail/hasLend/${item.br_id}?surplus_day=${item.surplus_day}`
     }))
   }, 
   hasTimeout(state) {
     return state.hasTimeout.map(item => ({
       ...item,
-      state: '对方已逾期',
-      url: `/clubDevDetail/hasTimeout/1?surplus_day=${item.surplus_day}`
+      state: `${item.equ_name}  对方已逾期`,
+      url: `/clubDevDetail/hasTimeout/${item.br_id}?surplus_day=${item.surplus_day}`
     }))
   }, 
   waitComfirm(state) {
     return state.waitComfirm.map(item => ({
       ...item,
       state: '请确认设备',
-      url: '/clubDevDetail/waitComfirm/1'
+      url: `/clubDevDetail/waitComfirm/${item.br_id}`
     }))
   }, 
   
@@ -33,7 +33,7 @@ export default {
   borrowing(state) {
     return state.borrowing.map(item => ({
       ...item,
-      state: `借用时长，剩余${item.surplus_day}天`,
+      state: `借用时长 剩余${item.surplus_day}天`,
       url: `/borrowDevDetail/borrowing/${item.br_id}?surplus_day=${item.surplus_day}`
     }))
   },
@@ -47,14 +47,14 @@ export default {
   hasTimeoutReturn(state) {
     return state.hasTimeoutReturn.map(item => ({
       ...item,
-      state: '已逾期，请尽快归还',
+      state: '已逾期 请尽快归还',
       url: `/borrowDevDetail/hasTimeoutReturn/${item.br_id}`
     }))
   },
   waitComfirmReturn(state) {
     return state.waitComfirmReturn.map(item => ({
       ...item,
-      state: '归还中，等待确认',
+      state: '归还中 等待确认',
       url: `/borrowDevDetail/waitComfirmReturn/${item.br_id}`
     }))
   }
