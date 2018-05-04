@@ -9,7 +9,7 @@
 
 <script>
 import { Loading, Alert, Toast } from 'vux'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -23,6 +23,7 @@ export default {
       'alert',
       'toast'
     ]),
+    ...mapMutations(['set_alert'])
   },
   methods: {
     onHide () {
@@ -42,6 +43,7 @@ export default {
         default:
           this.$router.go(-1)
       }
+      this.set_alert({value: false,  title: '', content: '',});
     }
   }
 }

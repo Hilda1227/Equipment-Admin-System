@@ -17,7 +17,7 @@
         </li>     
       <li>
         <span class = "title">库存</span>
-        <span class = "value count">{{ devDetail.equ_msg.count }}</span>
+        <span class = "value count">{{ devDetail.equ_msg.surplus }}</span>
         </li>
       <li>
         <span class = "title">存放地点</span>
@@ -197,6 +197,9 @@ export default {
     padding:15px 0;
     overflow:scroll;
     -webkit-overflow-scrolling:touch;
+    p{
+      text-align: left;
+    }
   }
   .vux-close {
     margin-top: 8px;

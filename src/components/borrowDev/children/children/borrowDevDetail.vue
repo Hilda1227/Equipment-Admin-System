@@ -5,7 +5,7 @@
 
       <x-input title = "设备" v-model = "operationDetail.equ_name" :readonly = "true"></x-input>
 
-      <x-input title = "借出" type="number" required v-model = "operationDetail.count" :readonly = "true"></x-input>
+      <x-input title = "借入" type="number" required v-model = "operationDetail.count" :readonly = "true"></x-input>
 
       <x-input title = "日期"  required v-model = "operationDetail.start_time" :readonly = "true"></x-input>
 
@@ -58,11 +58,11 @@ export default {
   created() {
     switch(this.type){
       case 'borrowing':
-	      this.title   = `借用时间，剩余${this.$route.query.surplus_day}天`;
+	      this.title   = `借用时间 剩余${this.$route.query.surplus_day}天`;
         this.btn_text = '提前还';
         break;
       case 'hasTimeoutReturn':
-        this.title   = '归还时间 已逾期n天';
+        this.title   = '已逾期 请尽快归还';
         this.btn_text = '归还';
         break;
       case 'checking':

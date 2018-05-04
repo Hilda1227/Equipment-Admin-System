@@ -9,4 +9,21 @@
     </keep-alive>
   </div>
 </template>
+<style lang="scss" scoped>
+.msg-check{
+    flex-grow: 1;
+    white-space: nowrap;
+    position: relative;
+    overflow: scroll;
+    .wrap{
+      flex-grow: 1;
+      white-space: nowrap;
+      position: relative;
+      overflow: scroll;
+    }
+}
+</style>
 
+
+
+    

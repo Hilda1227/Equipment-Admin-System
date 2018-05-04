@@ -55,7 +55,7 @@ export default {
   computed: {
     ...mapState(['devDetail', 'user']),
     choose_count () {
-      let choose = [], count = this.devDetail.equ_msg.count;
+      let choose = [], count = this.devDetail.equ_msg.surplus;
       for (let i = 1; i <=count; i++) {
         choose.push({name: i + '', value: i});
       }
@@ -63,6 +63,7 @@ export default {
     },
     startTime () {
       let date  = new Date();
+      date.setTime(date.getTime() + 24*60*60*1000);
       return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, 0)}-${String(date.getDate()).padStart(2, 0)}`;
     }
   },
