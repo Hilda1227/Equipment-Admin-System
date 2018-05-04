@@ -76,7 +76,7 @@ export default {
 
   getBorrowDev ({commit, state}, payload) {
     let query = serialize(payload),
-        types = ['borrowing', 'hasTimeoutReturn', 'checking', 'hasTimeoutReturn'];
+        types = ['borrowing', 'hasTimeoutReturn', 'checking', 'waitComfirmReturn'];
     let user_id = state.user.user_id ? state.user.user_id : localStorage.getItem('user_id')
     return axios.get(`/api/user/${user_id}/borrowed_equipments` + query)
     .then((res) => {
@@ -86,7 +86,7 @@ export default {
   },
 
   priorReturn ({commit, state}, payload) {
-    return axios.get(`/api/operation/${payload.br_id}/confirm_return`)
+    return axios.get(`/api/operation/${payload.br_id}/return`)
     .then((res) => {
       commit('set_toast',{value: true, type: 'success', 'is-show-mask': true, text: '归还成功',});
       setTimeout(() => {
@@ -120,6 +120,7 @@ export default {
   },
 
   confirmApply ({commit, state}, payload) {
+    console.log("提交",payload.params)
     return axios.post(`api/operation/${payload.br_id}/confirm`, formData(payload.params))
     .then(res => {
       if (Number(res.data.error) === 0) {
@@ -127,9 +128,6 @@ export default {
         setTimeout(() => {
           router.push({ name: 'lendApply' })
         }, 2000)
-      }
-      if(res.data.status){
-        commit('set_toast',{value: true, type: 'text', 'is-show-mask': true, text: '请求已被处理过',});
       }
     })
   },
@@ -182,6 +180,7 @@ export default {
     return axios.get(`/api/operation/${payload.br_id}/confirm_return`)
     .then(res => {
       commit('set_toast',{value: true, type: 'success', 'is-show-mask': true, text: '已确认',});
+      setTimeout(() => {router.push({name: 'waitComfirm'})}, 2000)
     })
   },
 }

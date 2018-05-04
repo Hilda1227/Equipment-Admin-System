@@ -17,7 +17,7 @@
         </li>     
       <li>
         <span class = "title">库存</span>
-        <span class = "value count">{{ devDetail.equ_msg.count }}</span>
+        <span class = "value count">{{ devDetail.equ_msg.surplus }}</span>
         </li>
       <li>
         <span class = "title">存放地点</span>
@@ -57,7 +57,7 @@
         <p class = "dialog-title">在借记录</p>
         <div class = "img-box">
           <p v-for="item in devDetail.br_list">
-            {{`${item.in_soc_name}-借了${item.count}-${item.end_date}归还`}}
+            {{`${item.soc_name}-借了${item.count}-${item.end_date}归还`}}
           </p>
         </div>
         <div @click = "showLendRecord = false">
@@ -197,6 +197,9 @@ export default {
     padding:15px 0;
     overflow:scroll;
     -webkit-overflow-scrolling:touch;
+    p{
+      text-align: left;
+    }
   }
   .vux-close {
     margin-top: 8px;

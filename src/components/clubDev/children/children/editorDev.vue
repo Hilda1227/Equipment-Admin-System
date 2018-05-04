@@ -5,7 +5,7 @@
 
       <m-input label-text = "设备型号" placeholder = "选填" v-model = "equ.model"></m-input>
 
-      <m-input label-text = "设备数量" type = "number" placeholder = "可借用设备数量" :required = "true" v-model = "equ.count"></m-input>
+      <m-input label-text = "设备数量" type = "number" placeholder = "可借用设备数量" :required = "true" v-model = "equ.surplus"></m-input>
 
       <m-input label-text = "负责人" type = "text" placeholder = "负责人姓名" :required = "true" v-model = "equ.resp_person"></m-input>
 

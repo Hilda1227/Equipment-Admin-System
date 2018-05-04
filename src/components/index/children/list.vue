@@ -12,9 +12,9 @@
               <div class = "weui-media-box__bd list_item item_info">
                   <h4 class = "weui-media-box__title">{{ item.name }}</h4>
                   <p class = "weui-media-box__desc"> {{ item.soc_name }}</p>
-                  <p class = "weui-media-box__desc"><span class = "count">{{ item.count }}</span>个剩余</p>
+                  <p class = "weui-media-box__desc"><span class = "count">{{ item.surplus }}</span>个剩余</p>
               </div>
-              <x-button @click.native = "toDetail(item.id)"  mini plain type="primary">{{ item.count ? '' : '不' }}可借</x-button>
+              <x-button @click.native = "toDetail(item.id)"  mini plain type="primary">{{ item.surplus ? '' : '不' }}可借</x-button>
             </a>
           </div>     
         </div>  

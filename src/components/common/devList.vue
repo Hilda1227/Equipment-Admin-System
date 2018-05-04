@@ -11,7 +11,7 @@
                 </li>
               <li>
                 <span class="dev-item-info-left">社团名称</span>
-                <span class="dev-item-info-right">{{item.in_soc_name}}</span>
+                <span class="dev-item-info-right">{{item.soc_name}}</span>
                 </li>
               <li>
                 <span class="dev-item-info-left">借用日期</span>

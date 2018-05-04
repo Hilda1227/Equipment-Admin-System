@@ -21,4 +21,17 @@ export default {
   }
 }
 </script>
-
+<style lang="scss" scoped>
+.borrow-dev{
+    flex-grow: 1;
+    white-space: nowrap;
+    position: relative;
+    overflow: scroll;
+    .wrap{
+      flex-grow: 1;
+      white-space: nowrap;
+      position: relative;
+      overflow: scroll;
+    }
+}
+</style>

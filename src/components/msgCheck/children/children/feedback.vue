@@ -30,7 +30,7 @@ export default {
     return {
       type: this.$route.params.type,
       br_id: this.$route.params.br_id,
-      back_msg: '',
+      back_msg: '不好意思，你们需要的设备已经借出去了，下次记得早点填写借用申请喔~',
       confirm_time: '',
       out_soc_name: '',
       in_soc_name: ''
