@@ -21,12 +21,12 @@ router.beforeEach(function (to, from, next) {
 
 // 未登录拦截
 // 刷新页面 store 数据总会被清空
-router.beforeEach((to, from, next) => {
-  if(to.path !=='/login' && to.path !=='/register' && store.state.user.user_id === void 0) {
-    next({path: '/login'});
-  }
-  else next();
-})
+// router.beforeEach((to, from, next) => {
+//   if(to.path !=='/login' && to.path !=='/register' && store.state.user.user_id === void 0) {
+//     next({path: '/login'});
+//   }
+//   else next();
+// })
 
 router.afterEach(function (to) {
   store.commit('updateLoadingStatus', {isLoading: false})
