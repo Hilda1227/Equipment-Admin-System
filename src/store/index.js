@@ -40,7 +40,6 @@ axios.interceptors.request.use(function (config) {
 
 axios.interceptors.response.use(res => {// 响应成功关闭loading
   store.commit('set_loading', { show: false });
-  console.log("hehe",res.data.error)
   if(String(res.data.error) !== "0" && typeof res.data.error !== 'undefined'){
     store.commit('set_alert', {value: true, title: '', content:  res.data.error});
     return Promise.reject(res)

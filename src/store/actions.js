@@ -44,7 +44,6 @@ export default {
   getDevDetail ({commit, state}, equ_id) {
     return axios.get('/api/equ/' + equ_id + '/')
     .then((res) => {
-      console.log("收到",res.data);
       commit('set_devDetail', res.data);
     })
   },
@@ -132,11 +131,16 @@ export default {
     })
   },
 
-  upload({commit, state}, payload) {
-    return axios.post('api/upload/', formData(payload))
-    .then(res => {
-      return res.data;
-    })
+  upload({commit, state}, file) {
+    if(file){
+      return axios.post('api/upload/', formData({ file }))
+      .then(res => {
+        return res.data;
+      })
+    } else {
+      return null;
+    }
+    
   },
 
   modifyInfo({commit, state}, payload) {

@@ -46,6 +46,7 @@ export default {
   },
   data() {    
     return {
+      file: null,
       type: this.$route.params.type,
       equ_id: this.$route.params.dev_id, 
       equ: {
@@ -78,30 +79,38 @@ export default {
     // 选择图片预览
     chooseImg() {
       let upload  = document.querySelector('.upload'),
-          file    = upload.files[0],          
           reader  = new FileReader();
-      this.pic_url = upload.value;
+          this.file    = upload.files[0];                    
+       if (this.file) reader.readAsDataURL( this.file);
       
-      reader.addEventListener("load", () => {
-        this.upload({file}).then(url => {this.equ.pic_url = url.pic_url;})
+      reader.addEventListener("load", (e) => {
+        this.equ.pic_url = e.target.result
       }, false);      
-      if (file) reader.readAsDataURL(file);
+     
     },
     click() {
       let submit = debounce((e) => {
-        
-        if(this.type == 'modify'){
-          this.modifyInfo({
-            equ_id: this.equ_id,
-            equ: {
-              ...this.equ, 
-              status: this.equ.status === false ? 1 : 0,
+        this.upload(this.file)
+          .then(url => {
+            if(url){
+              this.equ.pic_url = url.pic_url;
             }
           })
-        }
-        if(this.type == 'add'){
-          this.addClubDev(this.equ)
-        }
+          .then(() => {
+
+            if(this.type == 'modify'){
+              this.modifyInfo({
+                equ_id: this.equ_id,
+                equ: {
+                  ...this.equ, 
+                  status: this.equ.status === false ? 1 : 0,
+                }
+              })
+            }                                                                                
+            if(this.type == 'add'){
+              this.addClubDev(this.equ);
+            }
+          })
       }, 2500, true)
       submit();
     }
@@ -112,9 +121,6 @@ export default {
 <style lang="scss" scoped>
 .editor-dev{
   position: relative;
-  // display: flex;
-  // align-items: center;
-  // flex-direction: column;
 }
 form{
   width: 100%;
